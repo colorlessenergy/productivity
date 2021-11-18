@@ -4,3 +4,7 @@ body.dark {
     background-color: $dark-mode-background-color;
     color: #ffffff;
 }
+
+.dark .checkbox {
+    border-color: #ffffff;
+}
