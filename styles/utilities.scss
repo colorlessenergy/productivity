@@ -1,0 +1,30 @@
+@use 'variables.scss' as *;
+
+.d-none {
+    display: none;
+}
+
+.flex {
+    display: flex;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.py-1 {
+    padding-top: $space-1;
+    padding-bottom: $space-1;
+}
+
+.font-size-3 {
+    font-size: 24px;
+}
+
+.font-weight-bold {
+    font-weight: bold;
+}
