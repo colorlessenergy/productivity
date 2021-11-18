@@ -1,8 +1,17 @@
+import { useState } from 'react';
 import Head from 'next/head';
 
 import Nav from '../shared/components/Nav';
+import First from '../shared/components/Forms/First';
 
 export default function Home () {
+    const [ tasks, setTasks ] = useState({
+        allTasks: [],
+        quickTasks: [],
+        firstPriority: [],
+        secondPriority: []
+    });
+
     return (
         <div>
             <Head>
@@ -13,6 +22,8 @@ export default function Home () {
 
             <div className="container">
                 <Nav />
+
+                <First setTasks={ setTasks } />
             </div>
         </div>
     );

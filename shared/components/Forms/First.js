@@ -1,4 +1,17 @@
-const First = () => { 
+import { useState } from 'react';
+
+const First = ({ setTasks }) => { 
+    const [ allTasks, setAllTasks ] = useState([]);
+    const handleTextareaChange = (event) => {
+        setAllTasks(event.target.value.split('\n'))
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        setTasks(previousTasks => ({...previousTasks, allTasks: allTasks.filter(task => task !== '')}));
+    }
+
     return (
         <div>
             <p className="mb-1 font-size-3">
@@ -8,11 +21,13 @@ const First = () => {
                 make sure to separate them with a enter :)
             </p>
 
-            <form>
+            <form onSubmit={ handleSubmit }>
                 <label
                     htmlFor="allTask"
                     className="d-none">Dump everything that you need to do</label>
-                <textarea className="all-tasks-textarea mb-2"></textarea>
+                <textarea
+                    onChange={ handleTextareaChange }
+                    className="all-tasks-textarea mb-2"></textarea>
 
                 <div className="text-right">
                     <button className="submit-button background-color-yellow">next</button>
