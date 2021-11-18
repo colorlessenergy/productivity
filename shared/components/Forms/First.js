@@ -12,7 +12,11 @@ const First = () => {
                 <label
                     htmlFor="allTask"
                     className="d-none">Dump everything that you need to do</label>
-                <textarea className="all-tasks-textarea"></textarea>
+                <textarea className="all-tasks-textarea mb-2"></textarea>
+
+                <div className="text-right">
+                    <button className="submit-button background-color-yellow">next</button>
+                </div>
             </form>
         </div>
     );

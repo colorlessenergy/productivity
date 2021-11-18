@@ -24,6 +24,10 @@
     margin-bottom: $space-1;
 }
 
+.mb-2 {
+    margin-bottom: $space-2;
+}
+
 .py-1 {
     padding-top: $space-1;
     padding-bottom: $space-1;
@@ -39,4 +43,12 @@
 
 .font-weight-bold {
     font-weight: bold;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.background-color-yellow {
+    background-color: $yellow;
 }
