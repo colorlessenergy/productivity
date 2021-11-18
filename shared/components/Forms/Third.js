@@ -1,25 +1,39 @@
 import React, { useState } from 'react';
 
-const Second = ({ tasks, setTasks, setFormPart }) => { 
-    const [ allTasks, setAllTasks ] = useState(tasks.map(task => ({ task: task, isRemoved: false })));
+const Third = ({ tasks, setTasks, setFormPart }) => { 
+    const [ quickTasks, setQuickTasks ] = useState(tasks.map(task => ({ task: task, isQuickTask: false })));
 
     const handleCheckboxChange = (index) => {
-        let cloneAllTasks = JSON.parse(JSON.stringify(allTasks));
-        cloneAllTasks[index].isRemoved = !cloneAllTasks[index].isRemoved;
-        setAllTasks(cloneAllTasks);
+        let cloneQuickTasks = JSON.parse(JSON.stringify(quickTasks));
+        cloneQuickTasks[index].isQuickTask = !cloneQuickTasks[index].isQuickTask;
+        setQuickTasks(cloneQuickTasks);
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        setTasks(previousTasks => ({ ...previousTasks, allTasks: allTasks.filter(task => !task.isRemoved).map(task => task.task) }));
-        setFormPart(2);
+        let ID = JSON.parse(localStorage.getItem('ID'));
+
+        setTasks(previousTasks => (
+            { ...previousTasks,
+                allTasks: quickTasks.filter(task => !task.isQuickTask).map(task => task.task),
+                quickTasks: quickTasks
+                    .filter(task => task.isQuickTask)
+                    .map(task => {
+                        ID += 1;
+                        return { ID, task: task.task }
+                    })
+                }));
+
+        localStorage.setItem('ID', JSON.stringify(ID));
+
+        setFormPart(3);
     }
 
     return (
         <div>
             <p className="mb-1 font-size-3">
-                remove ones that you know can not be done today
+                pick ones that can be done quickly
             </p>
 
             <form onSubmit={ handleSubmit }>
@@ -32,10 +46,10 @@ const Second = ({ tasks, setTasks, setFormPart }) => {
                                 type="checkbox"
                                 id={`task-${ index }`}
                                 name={`task-${ index }`}
-                                checked={ allTasks[ index ].isRemoved } />
+                                checked={ quickTasks[ index ].isQuickTask } />
 
                             <label
-                                className="remove-task-label flex align-items-center mb-1 p-1 cursor-pointer font-size-2"
+                                className="flex align-items-center mb-1 p-1 cursor-pointer font-size-2"
                                 htmlFor={`task-${ index }`}>
                                     <span className="checkbox mr-1"></span>
                                     { task }
@@ -52,4 +66,4 @@ const Second = ({ tasks, setTasks, setFormPart }) => {
     );
 }
 
-export default Second;
+export default Third;

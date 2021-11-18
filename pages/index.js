@@ -4,6 +4,7 @@ import Head from 'next/head';
 import Nav from '../shared/components/Nav';
 import First from '../shared/components/Forms/First';
 import Second from '../shared/components/Forms/Second';
+import Third from '../shared/components/Forms/Third';
 
 export default function Home () {
     const [ tasks, setTasks ] = useState({
@@ -33,6 +34,13 @@ export default function Home () {
 
                 { formPart === 1 ? (
                     <Second
+                        tasks={ tasks.allTasks }
+                        setTasks={ setTasks }
+                        setFormPart={ setFormPart } />
+                ) : (null) }
+
+                { formPart === 2 ? (
+                    <Third
                         tasks={ tasks.allTasks }
                         setTasks={ setTasks }
                         setFormPart={ setFormPart } />
