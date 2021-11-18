@@ -1,0 +1,7 @@
+@use 'variables.scss' as *;
+
+body.dark {
+    background-color: $dark-mode-background-color;
+    color: #ffffff;
+    transition: background-color 0.5s ease;
+}
