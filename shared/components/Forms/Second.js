@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Second = ({ tasks, setTasks }) => { 
+const Second = ({ tasks, setTasks, setFormPart }) => { 
     const [ allTasks, setAllTasks ] = useState(tasks.map(task => ({ task: task, isRemoved: false })));
 
     const handleCheckboxChange = (index) => {
@@ -13,6 +13,7 @@ const Second = ({ tasks, setTasks }) => {
         event.preventDefault();
 
         setTasks(previousTasks => ({ ...previousTasks, allTasks: allTasks.filter(task => !task.isRemoved).map(task => task.task) }));
+        setFormPart(2);
     }
 
     return (

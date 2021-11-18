@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const First = ({ setTasks }) => { 
+const First = ({ setTasks, setFormPart }) => { 
     const [ allTasks, setAllTasks ] = useState([]);
     const handleTextareaChange = (event) => {
         setAllTasks(event.target.value.split('\n'))
@@ -10,6 +10,7 @@ const First = ({ setTasks }) => {
         event.preventDefault();
 
         setTasks(previousTasks => ({...previousTasks, allTasks: allTasks.filter(task => task !== '')}));
+        setFormPart(1);
     }
 
     return (

@@ -3,6 +3,7 @@ import Head from 'next/head';
 
 import Nav from '../shared/components/Nav';
 import First from '../shared/components/Forms/First';
+import Second from '../shared/components/Forms/Second';
 
 export default function Home () {
     const [ tasks, setTasks ] = useState({
@@ -12,6 +13,7 @@ export default function Home () {
         secondPriority: []
     });
 
+    const [ formPart, setFormPart ] = useState(0);
     return (
         <div>
             <Head>
@@ -22,8 +24,19 @@ export default function Home () {
 
             <div className="container">
                 <Nav />
+                { formPart === 0 ? (
+                    <First
+                        setTasks={ setTasks }
+                        setFormPart={ setFormPart } />
+                ) : (null) }
 
-                <First setTasks={ setTasks } />
+
+                { formPart === 1 ? (
+                    <Second
+                        tasks={ tasks.allTasks }
+                        setTasks={ setTasks }
+                        setFormPart={ setFormPart } />
+                ) : (null) }
             </div>
         </div>
     );
