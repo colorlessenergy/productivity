@@ -24,7 +24,8 @@ export default function Home () {
             localStorage.setItem('tasks', JSON.stringify(tasks));
             router.replace('/app')
         }
-    }, [ formPart ])
+    }, [ formPart ]);
+
     return (
         <div>
             <Head>

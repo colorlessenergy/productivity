@@ -20,9 +20,14 @@ const Fourth = ({ tasks, setTasks, setFormPart }) => {
                     .filter(task => task.isFirstPriorityTask)
                     .map(task => {
                         ID += 1;
-                        return { ID, task: task.task }
+                        return { ID, task: task.task, isDone: false }
                     }),
-                    secondPriority: firstPriorityTasks.filter(task => !task.isFirstPriorityTask).map(task => task.task),
+                    secondPriority: firstPriorityTasks
+                    .filter(task => !task.isFirstPriorityTask)
+                    .map(task => {
+                        ID += 1;
+                        return { ID, task: task.task, isDone: false }
+                    }),
                     allTasks: []
                 }));
 

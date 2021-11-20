@@ -5,6 +5,15 @@ body.dark {
     color: #ffffff;
 }
 
-.dark .checkbox {
+.dark .checkbox,
+.dark .border-3 {
     border-color: #ffffff;
+}
+
+.dark .color-dark-blue {
+    color: $dark-mode-dark-blue;
+}
+
+.dark .edit-icon {
+    fill: #ffffff;
 }

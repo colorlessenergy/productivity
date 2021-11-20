@@ -8,6 +8,10 @@
     display: flex;
 }
 
+.flex-1 {
+    flex: 1 1 auto;
+}
+
 .align-items-center {
     align-items: center;
 }
@@ -56,6 +60,10 @@
     font-weight: bold;
 }
 
+.color-dark-blue {
+    color: $dark-blue;
+}
+
 .text-right {
     text-align: right;
 }
@@ -66,4 +74,12 @@
 
 .cursor-pointer {
     cursor: pointer;
+}
+
+.border-3 {
+    border: 3px solid #000000;
+}
+
+.opacity-5 {
+    opacity: 0.5;
 }

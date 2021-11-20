@@ -21,7 +21,7 @@ const Third = ({ tasks, setTasks, setFormPart }) => {
                     .filter(task => task.isQuickTask)
                     .map(task => {
                         ID += 1;
-                        return { ID, task: task.task }
+                        return { ID, task: task.task, isDone: false }
                     })
                 }));
 
