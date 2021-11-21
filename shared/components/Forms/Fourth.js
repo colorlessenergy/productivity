@@ -68,7 +68,7 @@ const Fourth = ({ tasks, setTasks, setFormPart }) => {
                 </div>
 
                 <div className="text-right">
-                    <button className="submit-button background-color-yellow">next</button>
+                    <button className="button background-color-yellow">next</button>
                 </div>
             </form>
         </div>

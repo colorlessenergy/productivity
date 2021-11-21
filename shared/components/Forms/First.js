@@ -31,7 +31,7 @@ const First = ({ setTasks, setFormPart }) => {
                     className="all-tasks-textarea mb-2"></textarea>
 
                 <div className="text-right">
-                    <button className="submit-button background-color-yellow">next</button>
+                    <button className="button background-color-yellow">next</button>
                 </div>
             </form>
         </div>
