@@ -33,6 +33,10 @@
     overflow-y: scroll;
 }
 
+.mt-1 {
+    margin-top: $space-1;
+}
+
 .mr-1 {
     margin-right: $space-1;
 }
@@ -65,12 +69,28 @@
     font-size: 24px;
 }
 
+.font-size-4 {
+    font-size: 32px;
+}
+
 .font-weight-bold {
     font-weight: bold;
 }
 
 .color-dark-blue {
     color: $dark-blue;
+}
+
+.color-black {
+    color: #000000;
+}
+
+.color-white {
+    color: #ffffff;
+}
+
+.text-center {
+    text-align: center;
 }
 
 .text-right {
@@ -81,12 +101,12 @@
     background-color: $yellow;
 }
 
-.background-color-dark-red {
-    background-color: $dark-red;
+.background-color-green {
+    background-color: $green;
 }
 
-.color-white {
-    color: #ffffff;
+.background-color-dark-red {
+    background-color: $dark-red;
 }
 
 .cursor-pointer {
