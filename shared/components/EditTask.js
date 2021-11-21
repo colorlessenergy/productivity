@@ -19,11 +19,11 @@ const EditTask = ({ taskToEdit, setTaskToEdit, handleSubmit, toggleEditTaskModal
                     value={ taskToEdit.task } />
             </div>
             
-            <div className="flex align-items-center justify-content-between">
+            <div className="flex flex-wrap align-items-center justify-content-between">
                 <button
                     type="button"
                     onClick={ toggleEditTaskModal }
-                    className="button background-color-red">
+                    className="button background-color-red mb-1">
                     cancel
                 </button>
 
