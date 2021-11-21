@@ -21,6 +21,7 @@ export default function Home () {
     const router = useRouter(); 
     useEffect(() => {
         if (formPart === 'done') {
+            localStorage.setItem('visitedCelebrationPage', JSON.stringify(false));
             localStorage.setItem('tasks', JSON.stringify(tasks));
             router.replace('/app')
         }
