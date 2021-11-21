@@ -43,26 +43,29 @@ const Fourth = ({ tasks, setTasks, setFormPart }) => {
             </p>
 
             <form onSubmit={ handleSubmit }>
-                { tasks.map((task, index) => {
-                    return (
-                        <React.Fragment key={ index }>
-                            <input
-                                onChange={ () => handleCheckboxChange(index) }
-                                className="d-none"
-                                type="checkbox"
-                                id={`task-${ index }`}
-                                name={`task-${ index }`}
-                                checked={ firstPriorityTasks[ index ].isFirstPriorityTask } />
 
-                            <label
-                                className="flex align-items-center mb-1 p-1 cursor-pointer font-size-2"
-                                htmlFor={`task-${ index }`}>
-                                    <span className="checkbox mr-1"></span>
-                                    { task }
-                            </label>
-                        </React.Fragment>
-                    );
-               }) }
+                <div className="height-500 mb-1">
+                    { tasks.map((task, index) => {
+                        return (
+                            <React.Fragment key={ index }>
+                                <input
+                                    onChange={ () => handleCheckboxChange(index) }
+                                    className="d-none"
+                                    type="checkbox"
+                                    id={`task-${ index }`}
+                                    name={`task-${ index }`}
+                                    checked={ firstPriorityTasks[ index ].isFirstPriorityTask } />
+
+                                <label
+                                    className="flex align-items-center mb-1 p-1 cursor-pointer font-size-2"
+                                    htmlFor={`task-${ index }`}>
+                                        <span className="checkbox mr-1"></span>
+                                        { task }
+                                </label>
+                            </React.Fragment>
+                        );
+                    }) }
+                </div>
 
                 <div className="text-right">
                     <button className="submit-button background-color-yellow">next</button>
