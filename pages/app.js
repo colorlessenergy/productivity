@@ -4,8 +4,9 @@ import { useRouter } from 'next/router';
 
 import Nav from '../shared/components/Nav';
 import Task from '../shared/components/Task';
-import EditTask from '../shared/components/EditTask';
 import Modal from '../shared/components/Modal/Modal';
+import EditTask from '../shared/components/EditTask';
+import AddTask from '../shared/components/AddTask';
 
 export default function App () {
     const [ tasks, setTasks ] = useState({});
@@ -86,6 +87,34 @@ export default function App () {
         }
     }
 
+    const [ isAddTaskModalOpen, setIsAddTaskModalOpen ] = useState(false);
+    const [ addTaskType, setAddTaskType ] = useState('');
+    const addTask = (taskText) => {
+        let ID = JSON.parse(localStorage.getItem('ID'));
+        ID += 1;
+        const task = { ID, task: taskText, isDone: false };
+
+        let cloneTasks = JSON.parse(JSON.stringify(tasks));
+        cloneTasks[ addTaskType ].push(task);
+
+        setTasks(cloneTasks);
+        localStorage.setItem('tasks', JSON.stringify(cloneTasks));
+        localStorage.setItem('ID', JSON.stringify(ID));
+        toggleAddTaskModal();
+    }
+
+    const toggleAddTaskModal = (taskType) => {
+        setIsAddTaskModalOpen(previousIsAddTaskModalOpen => {
+            if (previousIsAddTaskModalOpen === false) {
+                setAddTaskType(taskType);
+                return true;
+            } else {
+                setAddTaskType('');
+                return false;
+            }
+        });
+    }
+
     return (
         <div>
             <Head>
@@ -97,9 +126,24 @@ export default function App () {
             <div className="container">
                 <Nav />
 
-                <h2 className="font-size-2 font-weight-bold color-dark-blue">quick tasks</h2>
+                <div className="flex align-items-center justify-content-between">
+                    <h2 className="font-size-2 font-weight-bold color-dark-blue">quick tasks</h2>
+
+                    <button onClick={ () => toggleAddTaskModal('quickTasks') }>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            height="24"
+                            className="icon">
+                            <path fill="none" d="M0 0h24v24H0z"/>
+                            <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/>
+                        </svg>
+                    </button>
+                </div>
                 { tasks.quickTasks && tasks.quickTasks.sort(sortTasks).map(task => {
-                    return ( <Task key={ task.ID }
+                    return (
+                        <Task key={ task.ID }
                             task={ task }
                             taskType='quickTasks'
                             handleCheckboxChange={ handleCheckboxChange }
@@ -107,7 +151,21 @@ export default function App () {
                     );
                 }) }
 
-                <h2 className="font-size-2 font-weight-bold color-dark-blue">priority 1</h2>
+                <div className="flex align-items-center justify-content-between">
+                    <h2 className="font-size-2 font-weight-bold color-dark-blue">priority 1</h2>
+
+                    <button onClick={ () => toggleAddTaskModal('firstPriority') }>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            height="24"
+                            className="icon">
+                            <path fill="none" d="M0 0h24v24H0z"/>
+                            <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/>
+                        </svg>
+                    </button>
+                </div>
                 { tasks.firstPriority && tasks.firstPriority.sort(sortTasks).map(task => {
                     return (
                         <Task
@@ -119,7 +177,21 @@ export default function App () {
                     );
                 }) }
 
-                <h2 className="font-size-2 font-weight-bold color-dark-blue">priority 2</h2>
+                <div className="flex align-items-center justify-content-between">
+                    <h2 className="font-size-2 font-weight-bold color-dark-blue">priority 2</h2>
+
+                    <button onClick={ () => toggleAddTaskModal('secondPriority') }>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            height="24"
+                            className="icon">
+                            <path fill="none" d="M0 0h24v24H0z"/>
+                            <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/>
+                        </svg>
+                    </button>
+                </div>
                 { tasks.secondPriority && tasks.secondPriority.sort(sortTasks).map(task => {
                     return (
                         <Task
@@ -139,6 +211,12 @@ export default function App () {
                             handleSubmit={ handleSubmit }
                             toggleEditTaskModal={ toggleEditTaskModal }
                             deleteTask={ deleteTask } />
+                    </Modal>
+                ) : (null) }
+
+                { isAddTaskModalOpen ? (
+                    <Modal isOpen={ isAddTaskModalOpen }>
+                        <AddTask handleSubmit={ addTask } />
                     </Modal>
                 ) : (null) }
             </div>
