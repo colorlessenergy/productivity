@@ -1,5 +1,6 @@
-import Head from 'next/head';
 import { useEffect, useState } from 'react';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 import Nav from '../shared/components/Nav';
 import Task from '../shared/components/Task';
@@ -18,8 +19,21 @@ export default function App () {
         cloneTasks[ taskType ][ taskIndex ] = { ...cloneTasks[ taskType ][ taskIndex ], isDone: !cloneTasks[ taskType ][ taskIndex ].isDone }
 
         setTasks(cloneTasks);
+        localStorage.setItem('visitedCelebrationPage', JSON.stringify(false));
         localStorage.setItem('tasks', JSON.stringify(cloneTasks));
     }
+
+    const router = useRouter();
+    useEffect(() => {
+        if (!tasks.quickTasks && !tasks.firstPriority && !tasks.secondPriority || JSON.parse(localStorage.getItem('visitedCelebrationPage'))) return;
+
+        if (tasks.quickTasks.filter(task => task.isDone === false).length === 0 &&
+            tasks.firstPriority.filter(task => task.isDone === false).length === 0 &&
+            tasks.secondPriority.filter(task => task.isDone === false).length === 0) {
+                localStorage.setItem('visitedCelebrationPage', JSON.stringify(true));
+                router.replace('/celebration');
+        }
+    }, [ tasks ]);
 
     const [ isEditTaskModalOpen, setIsEditTaskModalOpen ] = useState(false);
     const toggleEditTaskModal = () => {
