@@ -1,11 +1,21 @@
+import { useState } from 'react';
+
 const EditTask = ({ taskToEdit, setTaskToEdit, handleSubmit, toggleEditTaskModal, deleteTask }) => {
     const handleInputChange = (event) => {
         setTaskToEdit(previousTaskToEdit => ({ ...previousTaskToEdit, task: event.target.value }))
     }
 
+    const [ formValidation, setFormValidation ] = useState('');
+    const handleEditTaskSubmit = (event) => {
+        event.preventDefault();
+        if (taskToEdit.task === '') return setFormValidation('missing task');
+
+        handleSubmit();
+    }
+
     return (
         <form
-            onSubmit={ handleSubmit }
+            onSubmit={ handleEditTaskSubmit }
             className="flex flex-1 flex-direction-column justify-content-between">
             <div className="flex flex-direction-column">
                 <label
@@ -17,6 +27,11 @@ const EditTask = ({ taskToEdit, setTaskToEdit, handleSubmit, toggleEditTaskModal
                     onChange={ handleInputChange }
                     autoComplete="off"
                     value={ taskToEdit.task } />
+                { formValidation ? (
+                    <p className="mt-1 color-dark-red">
+                        { formValidation }
+                    </p>
+                ) : (null) }
             </div>
             
             <div className="flex flex-wrap align-items-center justify-content-between">

@@ -47,9 +47,7 @@ export default function App () {
         setTaskToEdit({ ...task, taskType })
     }
     
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
+    const editTask = () => {
         const cloneTasks = JSON.parse(JSON.stringify(tasks));
         const taskIndex = cloneTasks[ taskToEdit.taskType ].findIndex(task => task.ID === taskToEdit.ID);
         cloneTasks[ taskToEdit.taskType ][ taskIndex ] = {
@@ -204,7 +202,7 @@ export default function App () {
                         <EditTask
                             taskToEdit={ taskToEdit }
                             setTaskToEdit={ setTaskToEdit }
-                            handleSubmit={ handleSubmit }
+                            handleSubmit={ editTask }
                             toggleEditTaskModal={ toggleEditTaskModal }
                             deleteTask={ deleteTask } />
                     </Modal>
