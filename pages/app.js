@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 
 import Nav from '../shared/components/Nav';
 import Task from '../shared/components/Task';
+import EditTask from '../shared/components/EditTask';
+import Modal from '../shared/components/Modal/Modal';
 
 export default function App () {
     const [ tasks, setTasks ] = useState({});
@@ -24,6 +26,36 @@ export default function App () {
         setTasks(cloneTasks);
     }
 
+    const [ isEditTaskModalOpen, setIsEditTaskModalOpen ] = useState(false);
+    const toggleEditTaskModal = () => {
+        setIsEditTaskModalOpen(previousIsEditTaskModalOpen => !previousIsEditTaskModalOpen);
+    }
+
+    const [ taskToEdit, setTaskToEdit ] = useState({});
+    const openEditTaskModal = ({ task, taskType }) => {
+        toggleEditTaskModal();
+        setTaskToEdit({ ...task, taskType })
+    }
+    
+    const handleInputChange = (event) => {
+        setTaskToEdit(previousTaskToEdit => ({ ...previousTaskToEdit, task: event.target.value }))
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        const cloneTasks = JSON.parse(JSON.stringify(tasks));
+        const taskIndex = cloneTasks[ taskToEdit.taskType ].findIndex(task => task.ID === taskToEdit.ID);
+        cloneTasks[ taskToEdit.taskType ][ taskIndex ] = {
+            ID: taskToEdit.ID,
+            isDone: taskToEdit.isDone,
+            task: taskToEdit.task
+        }
+        setTasks(cloneTasks);
+
+        toggleEditTaskModal();
+    }
+
     return (
         <div>
             <Head>
@@ -42,7 +74,8 @@ export default function App () {
                             key={ task.ID }
                             task={ task }
                             taskType='quickTasks'
-                            handleCheckboxChange={ handleCheckboxChange } />
+                            handleCheckboxChange={ handleCheckboxChange }
+                            openEditTaskModal={ openEditTaskModal } />
                     );
                 }) }
 
@@ -53,7 +86,8 @@ export default function App () {
                             key={ task.ID }
                             task={ task }
                             taskType='firstPriority'
-                            handleCheckboxChange={ handleCheckboxChange } />
+                            handleCheckboxChange={ handleCheckboxChange }
+                            openEditTaskModal={ openEditTaskModal } />
                     );
                 }) }
 
@@ -64,9 +98,19 @@ export default function App () {
                             key={ task.ID }
                             task={ task }
                             taskType='secondPriority'
-                            handleCheckboxChange={ handleCheckboxChange } />
+                            handleCheckboxChange={ handleCheckboxChange }
+                            openEditTaskModal={ openEditTaskModal } />
                     );
                 }) }
+
+                { isEditTaskModalOpen ? (
+                    <Modal isOpen={ isEditTaskModalOpen }>
+                        <EditTask
+                            taskToEdit={ taskToEdit }
+                            handleInputChange={ handleInputChange }
+                            handleSubmit={ handleSubmit } />
+                    </Modal>
+                ) : (null) }
             </div>
         </div>
     );

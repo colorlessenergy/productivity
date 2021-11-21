@@ -1,4 +1,4 @@
-const Task = ({ task, handleCheckboxChange, taskType }) => {
+const Task = ({ task, taskType, handleCheckboxChange, openEditTaskModal }) => {
     return (
         <div className={ `border-3 flex align-items-center justify-content-between mb-1 ${ task.isDone ? ('opacity-5') : ('') }` }>
             <input
@@ -16,7 +16,9 @@ const Task = ({ task, handleCheckboxChange, taskType }) => {
                     { task.task }
             </label>
 
-            <button className="mr-1">
+            <button
+                onClick={ () => openEditTaskModal({ task, taskType }) }
+                className="mr-1">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
