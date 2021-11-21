@@ -18,6 +18,7 @@ export default function App () {
         cloneTasks[ taskType ][ taskIndex ] = { ...cloneTasks[ taskType ][ taskIndex ], isDone: !cloneTasks[ taskType ][ taskIndex ].isDone }
 
         setTasks(cloneTasks);
+        localStorage.setItem('tasks', JSON.stringify(cloneTasks));
     }
 
     const [ isEditTaskModalOpen, setIsEditTaskModalOpen ] = useState(false);
@@ -46,6 +47,7 @@ export default function App () {
             task: taskToEdit.task
         }
         setTasks(cloneTasks);
+        localStorage.setItem('tasks', JSON.stringify(cloneTasks));
 
         toggleEditTaskModal();
     }
