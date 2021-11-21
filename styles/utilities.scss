@@ -1,0 +1,130 @@
+@use 'variables.scss' as *;
+
+.d-none {
+    display: none;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.flex-direction-column {
+    flex-direction: column;
+}
+
+.flex-1 {
+    flex: 1 1 auto;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.height-450 {
+    height: 450px;
+    overflow-y: scroll;
+}
+
+.mt-1 {
+    margin-top: $space-1;
+}
+
+.mr-1 {
+    margin-right: $space-1;
+}
+
+.mb-1 {
+    margin-bottom: $space-1;
+}
+
+.p-1 {
+    padding-top: $space-1;
+    padding-right: $space-1;
+    padding-bottom: $space-1;
+    padding-left: $space-1;
+}
+
+.py-1 {
+    padding-top: $space-1;
+    padding-bottom: $space-1;
+}
+
+.font-size-2 {
+    font-size: 20px;
+}
+
+.font-size-3 {
+    font-size: 24px;
+}
+
+.font-size-4 {
+    font-size: 32px;
+}
+
+.font-weight-bold {
+    font-weight: bold;
+}
+
+.color-dark-blue {
+    color: $dark-blue;
+}
+
+.color-black {
+    color: #000000;
+}
+
+.color-white {
+    color: #ffffff;
+}
+
+.color-dark-red {
+    color: $dark-red;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.background-color-yellow {
+    background-color: $yellow;
+}
+
+.background-color-green {
+    background-color: $green;
+}
+
+.background-color-purple {
+    background-color: $purple;
+}
+
+.background-color-dark-red {
+    background-color: $dark-red;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.border-3 {
+    border: 3px solid #000000;
+}
+
+.opacity-5 {
+    opacity: 0.5;
+}

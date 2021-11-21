@@ -1,0 +1,35 @@
+@use 'variables.scss' as *;
+
+body.dark {
+    background-color: $dark-mode-background-color;
+    color: #ffffff;
+}
+
+.dark .checkbox,
+.dark .border-3 {
+    border-color: #ffffff;
+}
+
+.dark .color-dark-blue {
+    color: $dark-mode-dark-blue;
+}
+
+.dark .icon {
+    fill: #ffffff;
+}
+
+.dark input[ type="text" ] {
+    background-color: $dark-mode-background-color;
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.dark textarea {
+    background-color: $dark-mode-background-color;
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.dark .color-dark-red {
+    color: $red;
+}
