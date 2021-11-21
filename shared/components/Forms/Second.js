@@ -19,7 +19,7 @@ const Second = ({ tasks, setTasks, setFormPart }) => {
     return (
         <div>
             <p className="mb-1 font-size-3">
-                remove ones that you know can not be done today
+                remove ones that you know can not be done in a reasonable time
             </p>
 
             <form onSubmit={ handleSubmit }>
