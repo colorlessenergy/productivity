@@ -1,4 +1,8 @@
-const EditTask = ({ taskToEdit, handleInputChange, handleSubmit, toggleEditTaskModal, deleteTask }) => {
+const EditTask = ({ taskToEdit, setTaskToEdit, handleSubmit, toggleEditTaskModal, deleteTask }) => {
+    const handleInputChange = (event) => {
+        setTaskToEdit(previousTaskToEdit => ({ ...previousTaskToEdit, task: event.target.value }))
+    }
+
     return (
         <form
             onSubmit={ handleSubmit }

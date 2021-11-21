@@ -47,10 +47,6 @@ export default function App () {
         setTaskToEdit({ ...task, taskType })
     }
     
-    const handleInputChange = (event) => {
-        setTaskToEdit(previousTaskToEdit => ({ ...previousTaskToEdit, task: event.target.value }))
-    }
-
     const handleSubmit = (event) => {
         event.preventDefault();
 
@@ -207,7 +203,7 @@ export default function App () {
                     <Modal isOpen={ isEditTaskModalOpen }>
                         <EditTask
                             taskToEdit={ taskToEdit }
-                            handleInputChange={ handleInputChange }
+                            setTaskToEdit={ setTaskToEdit }
                             handleSubmit={ handleSubmit }
                             toggleEditTaskModal={ toggleEditTaskModal }
                             deleteTask={ deleteTask } />
