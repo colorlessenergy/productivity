@@ -1,15 +1,17 @@
 import { useState } from 'react';
 
 const First = ({ setTasks, setFormPart }) => { 
-    const [ allTasks, setAllTasks ] = useState([]);
+    const [ allTasks, setAllTasks ] = useState('');
     const handleTextareaChange = (event) => {
-        setAllTasks(event.target.value.split('\n'))
+        setAllTasks(event.target.value);
     }
 
+    const [ formValidation, setFormValidation ] = useState('');
     const handleSubmit = (event) => {
         event.preventDefault();
+        if (allTasks === '') return setFormValidation('at least one task needs to exist');
 
-        setTasks(previousTasks => ({...previousTasks, allTasks: allTasks.filter(task => task !== '')}));
+        setTasks(previousTasks => ({...previousTasks, allTasks: allTasks.split('\n').filter(task => task !== '')}));
         setFormPart(1);
     }
 
@@ -28,9 +30,14 @@ const First = ({ setTasks, setFormPart }) => {
                     className="d-none">Dump everything that you need to do</label>
                 <textarea
                     onChange={ handleTextareaChange }
-                    className="all-tasks-textarea mb-2"></textarea>
+                    className="all-tasks-textarea"></textarea>
+                { formValidation ? (
+                    <p className="mt-1 color-dark-red">
+                        { formValidation }
+                    </p>
+                ) : (null) }
 
-                <div className="text-right">
+                <div className="mt-2 text-right">
                     <button className="button background-color-yellow">next</button>
                 </div>
             </form>
