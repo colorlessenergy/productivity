@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const AddTask = ({ handleSubmit }) => {
+const AddTask = ({ handleSubmit, toggleAddTaskModal }) => {
     const [ task, setTask ] = useState('');
     const [ formValidation, setFormValidation ] = useState('');
 
@@ -37,7 +37,14 @@ const AddTask = ({ handleSubmit }) => {
                 ) : (null) }
             </div>
             
-            <div className="text-right">
+            <div className="flex align-items-center justify-content-between">
+                <button
+                    type="button"
+                    onClick={ toggleAddTaskModal }
+                    className="button background-color-red">
+                    cancel
+                </button>
+
                 <button className="button background-color-yellow">
                     create
                 </button>

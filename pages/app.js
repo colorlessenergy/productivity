@@ -212,7 +212,9 @@ export default function App () {
 
                 { isAddTaskModalOpen ? (
                     <Modal isOpen={ isAddTaskModalOpen }>
-                        <AddTask handleSubmit={ addTask } />
+                        <AddTask
+                            handleSubmit={ addTask }
+                            toggleAddTaskModal={ toggleAddTaskModal } />
                     </Modal>
                 ) : (null) }
             </div>
