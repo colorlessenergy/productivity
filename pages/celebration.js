@@ -1,19 +1,10 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 import Nav from '../shared/components/Nav';
 import Confetti from 'react-confetti';
 
 export default function Celebration () {
-    const router = useRouter();
-    const createNewTasks = () => {
-        localStorage.setItem('visitedCelebrationPage', JSON.stringify(false));
-        localStorage.setItem('tasks', JSON.stringify([]));
-
-        router.replace('/');
-    }
-
     return (
         <div className="container">
             <Nav />
@@ -40,15 +31,19 @@ export default function Celebration () {
                         </a>
                     </Link>
 
-                    <button
-                        onClick={ createNewTasks }
-                        className="button background-color-yellow">
-                        create new tasks
-                    </button>
+
+
+                    <Link href="/">
+                        <a className="button background-color-yellow color-black">
+                            create new tasks
+                        </a>
+                    </Link>
                 </div>
             </div>
 
-            <Confetti height={ window.innerHeight }width={ window.innerWidth } />
+            { typeof window !== 'undefined' ? (
+                <Confetti height={ window.innerHeight } width={ window.innerWidth } />
+            ) : (null) }
         </div>
     );
 }
