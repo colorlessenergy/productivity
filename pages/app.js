@@ -79,8 +79,8 @@ export default function App () {
     return (
         <div>
             <Head>
-                <title>productivity</title>
-                <meta name="description" content="productivity" />
+                <title>app - productivity</title>
+                <meta name="description" content="app - productivity" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 

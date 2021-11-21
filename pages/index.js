@@ -30,8 +30,8 @@ export default function Home () {
     return (
         <div>
             <Head>
-                <title>productivity</title>
-                <meta name="description" content="productivity" />
+                <title>questions - productivity</title>
+                <meta name="description" content="questions - productivity" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
