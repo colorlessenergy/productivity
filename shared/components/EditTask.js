@@ -44,7 +44,7 @@ const EditTask = ({ taskToEdit, setTaskToEdit, handleSubmit, toggleEditTaskModal
                 <button
                     type="button"
                     onClick={ toggleEditTaskModal }
-                    className="button background-color-red mb-1">
+                    className="button mb-1 background-color-purple color-white">
                     cancel
                 </button>
 

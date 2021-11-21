@@ -47,7 +47,7 @@ const AddTask = ({ handleSubmit, toggleAddTaskModal }) => {
                 <button
                     type="button"
                     onClick={ toggleAddTaskModal }
-                    className="button background-color-red">
+                    className="button background-color-purple color-white">
                     cancel
                 </button>
 
