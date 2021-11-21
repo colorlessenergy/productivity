@@ -1,4 +1,4 @@
-const EditTask = ({ taskToEdit, handleInputChange, handleSubmit }) => {
+const EditTask = ({ taskToEdit, handleInputChange, handleSubmit, toggleEditTaskModal }) => {
     return (
         <form
             onSubmit={ handleSubmit }
@@ -6,7 +6,7 @@ const EditTask = ({ taskToEdit, handleInputChange, handleSubmit }) => {
             <div className="flex flex-direction-column">
                 <label
                     htmlFor="editTask"
-                    className="font-size-2 font-weight-bold mb-1">edit task</label>
+                    className="font-size-3 font-weight-bold mb-1">edit task</label>
                 <input
                     type="text"
                     id="editTask"
@@ -15,8 +15,15 @@ const EditTask = ({ taskToEdit, handleInputChange, handleSubmit }) => {
                     value={ taskToEdit.task } />
             </div>
             
-            <div className="text-right">
-                <button className="submit-button background-color-yellow">
+            <div className="flex align-items-center justify-content-between">
+                <button
+                    type="button"
+                    onClick={ toggleEditTaskModal }
+                    className="button background-color-dark-red color-white">
+                    cancel
+                </button>
+
+                <button className="button background-color-yellow">
                     edit
                 </button>
             </div>

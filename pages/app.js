@@ -108,7 +108,8 @@ export default function App () {
                         <EditTask
                             taskToEdit={ taskToEdit }
                             handleInputChange={ handleInputChange }
-                            handleSubmit={ handleSubmit } />
+                            handleSubmit={ handleSubmit }
+                            toggleEditTaskModal={ toggleEditTaskModal } />
                     </Modal>
                 ) : (null) }
             </div>
