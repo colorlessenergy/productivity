@@ -39,3 +39,7 @@ input:checked + label.remove-task-label {
 input:checked + label .checkbox {
     background-color: $red;
 }
+
+body.modal-is-open {
+    overflow: hidden;
+}
