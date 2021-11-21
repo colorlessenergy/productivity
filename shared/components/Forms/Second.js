@@ -23,7 +23,7 @@ const Second = ({ tasks, setTasks, setFormPart }) => {
             </p>
 
             <form onSubmit={ handleSubmit }>
-                <div className="height-500 mb-1">
+                <div className="height-450 mb-1">
                     { tasks.map((task, index) => {
                         return (
                             <React.Fragment key={ index }>
