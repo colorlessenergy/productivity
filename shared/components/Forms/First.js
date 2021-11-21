@@ -25,6 +25,10 @@ const First = ({ setTasks, setFormPart }) => {
             </p>
 
             <form onSubmit={ handleSubmit }>
+                <div className="mb-1 text-right">
+                    <button className="button background-color-yellow">next</button>
+                </div>
+
                 <label
                     htmlFor="allTask"
                     className="d-none">Dump everything that you need to do</label>
@@ -36,10 +40,6 @@ const First = ({ setTasks, setFormPart }) => {
                         { formValidation }
                     </p>
                 ) : (null) }
-
-                <div className="mt-2 text-right">
-                    <button className="button background-color-yellow">next</button>
-                </div>
             </form>
         </div>
     );

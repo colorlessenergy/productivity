@@ -37,7 +37,10 @@ const Third = ({ tasks, setTasks, setFormPart }) => {
             </p>
 
             <form onSubmit={ handleSubmit }>
-                <div className="height-450 mb-1">
+                <div className="text-right mb-1">
+                    <button className="button background-color-yellow">next</button>
+                </div>
+                <div className="height-450">
                     { tasks.map((task, index) => {
                         return (
                             <React.Fragment key={ index }>
@@ -58,10 +61,6 @@ const Third = ({ tasks, setTasks, setFormPart }) => {
                             </React.Fragment>
                         );
                     }) }
-                </div>
-
-                <div className="text-right">
-                    <button className="button background-color-yellow">next</button>
                 </div>
             </form>
         </div>
