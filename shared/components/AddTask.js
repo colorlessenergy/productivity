@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const AddTask = ({ handleSubmit, toggleAddTaskModal }) => {
     const [ task, setTask ] = useState('');
@@ -15,6 +15,11 @@ const AddTask = ({ handleSubmit, toggleAddTaskModal }) => {
         handleSubmit(task);
     }
 
+    const inputRef = useRef(null);
+    useEffect(() => {
+        inputRef.current.focus();
+    }, []);
+
     return (
         <form
             onSubmit={ (event) =>  handleAddTaskSubmit({ event, task }) }
@@ -25,6 +30,7 @@ const AddTask = ({ handleSubmit, toggleAddTaskModal }) => {
                     className="font-size-3 font-weight-bold mb-1">add task</label>
                 <input
                     type="text"
+                    ref={ inputRef }
                     id="addTask"
                     placeholder="add task"
                     onChange={ handleInputChange }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const EditTask = ({ taskToEdit, setTaskToEdit, handleSubmit, toggleEditTaskModal, deleteTask }) => {
     const handleInputChange = (event) => {
@@ -13,6 +13,11 @@ const EditTask = ({ taskToEdit, setTaskToEdit, handleSubmit, toggleEditTaskModal
         handleSubmit();
     }
 
+    const inputRef = useRef(null);
+    useEffect(() => {
+        inputRef.current.focus();
+    }, []);
+
     return (
         <form
             onSubmit={ handleEditTaskSubmit }
@@ -23,10 +28,11 @@ const EditTask = ({ taskToEdit, setTaskToEdit, handleSubmit, toggleEditTaskModal
                     className="font-size-3 font-weight-bold mb-1">edit task</label>
                 <input
                     type="text"
+                    ref={ inputRef }
                     id="editTask"
                     onChange={ handleInputChange }
-                    autoComplete="off"
-                    value={ taskToEdit.task } />
+                    value={ taskToEdit.task }
+                    autoComplete="off" />
                 { formValidation ? (
                     <p className="mt-1 color-dark-red">
                         { formValidation }
