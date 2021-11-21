@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 import Nav from '../shared/components/Nav';
+import Confetti from 'react-confetti';
 
 export default function Celebration () {
     const router = useRouter();
@@ -46,6 +47,8 @@ export default function Celebration () {
                     </button>
                 </div>
             </div>
+
+            <Confetti height={ window.innerHeight }width={ window.innerWidth } />
         </div>
     );
 }
