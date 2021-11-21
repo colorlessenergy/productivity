@@ -10,7 +10,6 @@
 
     background-color: rgba(0, 0, 0, 0.4);
     color: #000000;
-    overflow: auto;
 }
 
 .modal-content {
@@ -22,7 +21,7 @@
     width: 100%;
 
     background-color: #ffffff;
-    overflow-y: scroll;
+    overflow: hidden;
 }
 
 :global(.dark) .modal-content {
