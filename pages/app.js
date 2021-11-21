@@ -17,12 +17,6 @@ export default function App () {
         const taskIndex = cloneTasks[ taskType ].findIndex(cloneTask => cloneTask.ID === task.ID);
         cloneTasks[ taskType ][ taskIndex ] = { ...cloneTasks[ taskType ][ taskIndex ], isDone: !cloneTasks[ taskType ][ taskIndex ].isDone }
 
-        if (cloneTasks[ taskType ][ taskIndex ].isDone === true) {
-            const task = cloneTasks[ taskType ][ taskIndex ];
-            cloneTasks[ taskType ].splice(taskIndex, 1)
-            cloneTasks[ taskType ].splice(cloneTasks[ taskType ].length, 0, task);
-        }
-
         setTasks(cloneTasks);
     }
 
@@ -56,6 +50,16 @@ export default function App () {
         toggleEditTaskModal();
     }
 
+    const sortTasks = (taskOne, taskTwo) => {
+        if (taskOne.isDone === taskTwo.isDone) {
+            return taskOne.ID - taskTwo.ID;
+        } else if (taskOne.isDone) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+
     return (
         <div>
             <Head>
@@ -68,10 +72,8 @@ export default function App () {
                 <Nav />
 
                 <h2 className="font-size-2 font-weight-bold color-dark-blue">quick tasks</h2>
-                { tasks.quickTasks && tasks.quickTasks.map(task => {
-                    return (
-                        <Task
-                            key={ task.ID }
+                { tasks.quickTasks && tasks.quickTasks.sort(sortTasks).map(task => {
+                    return ( <Task key={ task.ID }
                             task={ task }
                             taskType='quickTasks'
                             handleCheckboxChange={ handleCheckboxChange }
@@ -80,7 +82,7 @@ export default function App () {
                 }) }
 
                 <h2 className="font-size-2 font-weight-bold color-dark-blue">priority 1</h2>
-                { tasks.firstPriority && tasks.firstPriority.map(task => {
+                { tasks.firstPriority && tasks.firstPriority.sort(sortTasks).map(task => {
                     return (
                         <Task
                             key={ task.ID }
@@ -92,7 +94,7 @@ export default function App () {
                 }) }
 
                 <h2 className="font-size-2 font-weight-bold color-dark-blue">priority 2</h2>
-                { tasks.secondPriority && tasks.secondPriority.map(task => {
+                { tasks.secondPriority && tasks.secondPriority.sort(sortTasks).map(task => {
                     return (
                         <Task
                             key={ task.ID }
