@@ -24,6 +24,10 @@ input[ type="text" ] {
     padding: 8px;
 }
 
+textarea {
+    transition: background-color 0.5s ease;
+}
+
 button {
     border: none;
     padding: 0;
