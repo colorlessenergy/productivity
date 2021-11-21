@@ -1,9 +1,18 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 import Nav from '../shared/components/Nav';
 
 export default function Celebration () {
+    const router = useRouter();
+    const createNewTasks = () => {
+        localStorage.setItem('visitedCelebrationPage', JSON.stringify(false));
+        localStorage.setItem('tasks', JSON.stringify([]));
+
+        router.replace('/');
+    }
+
     return (
         <div className="container">
             <Nav />
@@ -30,7 +39,9 @@ export default function Celebration () {
                         </a>
                     </Link>
 
-                    <button className="button background-color-yellow">
+                    <button
+                        onClick={ createNewTasks }
+                        className="button background-color-yellow">
                         create new tasks
                     </button>
                 </div>
