@@ -1,4 +1,4 @@
-const EditTask = ({ taskToEdit, handleInputChange, handleSubmit, toggleEditTaskModal }) => {
+const EditTask = ({ taskToEdit, handleInputChange, handleSubmit, toggleEditTaskModal, deleteTask }) => {
     return (
         <form
             onSubmit={ handleSubmit }
@@ -19,8 +19,15 @@ const EditTask = ({ taskToEdit, handleInputChange, handleSubmit, toggleEditTaskM
                 <button
                     type="button"
                     onClick={ toggleEditTaskModal }
-                    className="button background-color-dark-red color-white">
+                    className="button background-color-red">
                     cancel
+                </button>
+
+                <button
+                    type="button"
+                    onClick={ deleteTask }
+                    className="button background-color-dark-red color-white">
+                    delete
                 </button>
 
                 <button className="button background-color-yellow">

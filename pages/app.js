@@ -66,6 +66,16 @@ export default function App () {
         toggleEditTaskModal();
     }
 
+    const deleteTask = () => {
+        const cloneTasks = JSON.parse(JSON.stringify(tasks));
+        const taskIndex = cloneTasks[ taskToEdit.taskType ].findIndex(task => task.ID === taskToEdit.ID);
+        cloneTasks[ taskToEdit.taskType ].splice(taskIndex, 1);
+        setTasks(cloneTasks);
+        localStorage.setItem('tasks', JSON.stringify(cloneTasks));
+
+        toggleEditTaskModal();
+    }
+
     const sortTasks = (taskOne, taskTwo) => {
         if (taskOne.isDone === taskTwo.isDone) {
             return taskOne.ID - taskTwo.ID;
@@ -127,7 +137,8 @@ export default function App () {
                             taskToEdit={ taskToEdit }
                             handleInputChange={ handleInputChange }
                             handleSubmit={ handleSubmit }
-                            toggleEditTaskModal={ toggleEditTaskModal } />
+                            toggleEditTaskModal={ toggleEditTaskModal }
+                            deleteTask={ deleteTask } />
                     </Modal>
                 ) : (null) }
             </div>
