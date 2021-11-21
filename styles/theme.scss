@@ -17,3 +17,15 @@ body.dark {
 .dark .icon {
     fill: #ffffff;
 }
+
+.dark input[ type="text" ] {
+    background-color: $dark-mode-background-color;
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.dark textarea {
+    background-color: $dark-mode-background-color;
+    border-color: #ffffff;
+    color: #ffffff;
+}
