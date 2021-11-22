@@ -16,9 +16,21 @@ export default function Home () {
         secondPriority: []
     });
 
-    const [ formPart, setFormPart ] = useState(0);
-
     const router = useRouter(); 
+
+    useEffect(() => {
+        let tasks = localStorage.getItem('tasks');
+        if (!tasks) return;
+        tasks = JSON.parse(tasks);
+        const taskTypes = ['quickTasks', 'firstPriority', 'secondPriority'];
+        for (let i = 0; i < taskTypes.length; i++) {
+            for (let j = 0; j < tasks[taskTypes[ i ]].length; j++ ) {
+                if (tasks[ taskTypes[i] ][ j ].isDone === false) return router.replace('/app');
+            }
+        }
+    }, []);
+
+    const [ formPart, setFormPart ] = useState(0);
     useEffect(() => {
         if (formPart === 'done') {
             localStorage.setItem('visitedCelebrationPage', JSON.stringify(false));
