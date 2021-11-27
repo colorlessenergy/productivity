@@ -8,6 +8,35 @@ import Modal from '../shared/components/Modal/Modal';
 import EditTask from '../shared/components/EditTask';
 import AddTask from '../shared/components/AddTask';
 
+import { SortableContainer, SortableElement } from 'react-sortable-hoc';
+import { arrayMoveImmutable } from 'array-move';
+
+const SortableTask = SortableElement(({ task, taskType, handleCheckboxChange, openEditTaskModal }) => {
+    return (
+        <Task
+            task={ task }
+            taskType={ taskType }
+            handleCheckboxChange={ handleCheckboxChange }
+            openEditTaskModal={ openEditTaskModal } />
+    );
+});
+
+const SortableTasks = SortableContainer(({ tasks, taskType, handleCheckboxChange, openEditTaskModal }) => {
+    return (
+        <div>
+            { tasks.map((task, index) => (
+                <SortableTask
+                    key={ task.ID }
+                    index={ index }
+                    task={ task }
+                    taskType={ taskType }
+                    handleCheckboxChange={ handleCheckboxChange }
+                    openEditTaskModal={ openEditTaskModal } />
+            )) }
+        </div>
+    );
+});
+
 export default function App () {
     const [ tasks, setTasks ] = useState({});
     useEffect(() => {
@@ -73,7 +102,7 @@ export default function App () {
 
     const sortTasks = (taskOne, taskTwo) => {
         if (taskOne.isDone === taskTwo.isDone) {
-            return taskOne.ID - taskTwo.ID;
+            return 0;
         } else if (taskOne.isDone) {
             return 1;
         } else {
@@ -109,6 +138,15 @@ export default function App () {
         });
     }
 
+    const onSortEnd = ({ oldIndex, newIndex, taskType }) => {
+        setTasks(previousTasks => {
+            return {
+                ...previousTasks,
+                [ taskType ]: arrayMoveImmutable(previousTasks[ taskType ], oldIndex, newIndex),
+            }
+        });
+    };
+
     return (
         <div>
             <Head>
@@ -135,15 +173,15 @@ export default function App () {
                         </svg>
                     </button>
                 </div>
-                { tasks.quickTasks && tasks.quickTasks.sort(sortTasks).map(task => {
-                    return (
-                        <Task key={ task.ID }
-                            task={ task }
-                            taskType='quickTasks'
-                            handleCheckboxChange={ handleCheckboxChange }
-                            openEditTaskModal={ openEditTaskModal } />
-                    );
-                }) }
+                { tasks.quickTasks ? (
+                    <SortableTasks
+                        distance={ 5 }
+                        onSortEnd={ ({ oldIndex, newIndex }) => onSortEnd({ oldIndex, newIndex, taskType: 'quickTasks' }) }
+                        tasks={ tasks.quickTasks.sort(sortTasks) }
+                        taskType='quickTasks'
+                        handleCheckboxChange={ handleCheckboxChange }
+                        openEditTaskModal={ openEditTaskModal } />
+                ) : (null) }
 
                 <div className="flex align-items-center justify-content-between">
                     <h2 className="font-size-2 font-weight-bold color-dark-blue">priority 1</h2>
@@ -160,16 +198,15 @@ export default function App () {
                         </svg>
                     </button>
                 </div>
-                { tasks.firstPriority && tasks.firstPriority.sort(sortTasks).map(task => {
-                    return (
-                        <Task
-                            key={ task.ID }
-                            task={ task }
-                            taskType='firstPriority'
-                            handleCheckboxChange={ handleCheckboxChange }
-                            openEditTaskModal={ openEditTaskModal } />
-                    );
-                }) }
+                { tasks.firstPriority ? (
+                    <SortableTasks
+                        distance={ 2 }
+                        onSortEnd={ ({ oldIndex, newIndex }) => onSortEnd({ oldIndex, newIndex, taskType: 'firstPriority' }) }
+                        tasks={ tasks.firstPriority.sort(sortTasks) }
+                        taskType='firstPriority'
+                        handleCheckboxChange={ handleCheckboxChange }
+                        openEditTaskModal={ openEditTaskModal } />
+                ) : (null) }
 
                 <div className="flex align-items-center justify-content-between">
                     <h2 className="font-size-2 font-weight-bold color-dark-blue">priority 2</h2>
@@ -186,16 +223,15 @@ export default function App () {
                         </svg>
                     </button>
                 </div>
-                { tasks.secondPriority && tasks.secondPriority.sort(sortTasks).map(task => {
-                    return (
-                        <Task
-                            key={ task.ID }
-                            task={ task }
-                            taskType='secondPriority'
-                            handleCheckboxChange={ handleCheckboxChange }
-                            openEditTaskModal={ openEditTaskModal } />
-                    );
-                }) }
+                { tasks.secondPriority ? (
+                    <SortableTasks
+                        distance={ 2 }
+                        onSortEnd={ ({ oldIndex, newIndex }) => onSortEnd({ oldIndex, newIndex, taskType: 'secondPriority' }) }
+                        tasks={ tasks.secondPriority.sort(sortTasks) }
+                        taskType='secondPriority'
+                        handleCheckboxChange={ handleCheckboxChange }
+                        openEditTaskModal={ openEditTaskModal } />
+                ) : (null) }
 
                 { isEditTaskModalOpen ? (
                     <Modal isOpen={ isEditTaskModalOpen }>
