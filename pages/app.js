@@ -140,10 +140,13 @@ export default function App () {
 
     const onSortEnd = ({ oldIndex, newIndex, taskType }) => {
         setTasks(previousTasks => {
-            return {
+            const tasks = {
                 ...previousTasks,
                 [ taskType ]: arrayMoveImmutable(previousTasks[ taskType ], oldIndex, newIndex),
-            }
+            };
+
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            return tasks;
         });
     };
 
