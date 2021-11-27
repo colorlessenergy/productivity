@@ -176,9 +176,10 @@ export default function App () {
                 { tasks.quickTasks ? (
                     <SortableTasks
                         pressDelay={ 50 }
+                        lockAxis="y"
                         onSortEnd={ ({ oldIndex, newIndex }) => onSortEnd({ oldIndex, newIndex, taskType: 'quickTasks' }) }
                         tasks={ tasks.quickTasks.sort(sortTasks) }
-                        taskType='quickTasks'
+                        taskType="quickTasks"
                         handleCheckboxChange={ handleCheckboxChange }
                         openEditTaskModal={ openEditTaskModal } />
                 ) : (null) }
@@ -201,9 +202,10 @@ export default function App () {
                 { tasks.firstPriority ? (
                     <SortableTasks
                         pressDelay={ 50 }
+                        lockAxis="y"
                         onSortEnd={ ({ oldIndex, newIndex }) => onSortEnd({ oldIndex, newIndex, taskType: 'firstPriority' }) }
                         tasks={ tasks.firstPriority.sort(sortTasks) }
-                        taskType='firstPriority'
+                        taskType="firstPriority"
                         handleCheckboxChange={ handleCheckboxChange }
                         openEditTaskModal={ openEditTaskModal } />
                 ) : (null) }
@@ -226,9 +228,10 @@ export default function App () {
                 { tasks.secondPriority ? (
                     <SortableTasks
                         pressDelay={ 50 }
+                        lockAxis="y"
                         onSortEnd={ ({ oldIndex, newIndex }) => onSortEnd({ oldIndex, newIndex, taskType: 'secondPriority' }) }
                         tasks={ tasks.secondPriority.sort(sortTasks) }
-                        taskType='secondPriority'
+                        taskType="secondPriority"
                         handleCheckboxChange={ handleCheckboxChange }
                         openEditTaskModal={ openEditTaskModal } />
                 ) : (null) }
