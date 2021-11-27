@@ -175,7 +175,7 @@ export default function App () {
                 </div>
                 { tasks.quickTasks ? (
                     <SortableTasks
-                        distance={ 5 }
+                        pressDelay={ 200 }
                         onSortEnd={ ({ oldIndex, newIndex }) => onSortEnd({ oldIndex, newIndex, taskType: 'quickTasks' }) }
                         tasks={ tasks.quickTasks.sort(sortTasks) }
                         taskType='quickTasks'
@@ -200,7 +200,7 @@ export default function App () {
                 </div>
                 { tasks.firstPriority ? (
                     <SortableTasks
-                        distance={ 2 }
+                        pressDelay={ 200 }
                         onSortEnd={ ({ oldIndex, newIndex }) => onSortEnd({ oldIndex, newIndex, taskType: 'firstPriority' }) }
                         tasks={ tasks.firstPriority.sort(sortTasks) }
                         taskType='firstPriority'
@@ -225,7 +225,7 @@ export default function App () {
                 </div>
                 { tasks.secondPriority ? (
                     <SortableTasks
-                        distance={ 2 }
+                        pressDelay={ 200 }
                         onSortEnd={ ({ oldIndex, newIndex }) => onSortEnd({ oldIndex, newIndex, taskType: 'secondPriority' }) }
                         tasks={ tasks.secondPriority.sort(sortTasks) }
                         taskType='secondPriority'
