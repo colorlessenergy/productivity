@@ -1,6 +1,6 @@
 # productivity
 
-A Progressive Web App to oraganize and complete tasks.
+A Progressive Web App to organize and complete tasks.
 
 [visit web app](https://productivity1.vercel.app/)
 
