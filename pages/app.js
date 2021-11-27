@@ -177,6 +177,7 @@ export default function App () {
                     <SortableTasks
                         pressDelay={ 50 }
                         lockAxis="y"
+                        useWindowAsScrollContainer={ true }
                         onSortEnd={ ({ oldIndex, newIndex }) => onSortEnd({ oldIndex, newIndex, taskType: 'quickTasks' }) }
                         tasks={ tasks.quickTasks.sort(sortTasks) }
                         taskType="quickTasks"
@@ -203,6 +204,7 @@ export default function App () {
                     <SortableTasks
                         pressDelay={ 50 }
                         lockAxis="y"
+                        useWindowAsScrollContainer={ true }
                         onSortEnd={ ({ oldIndex, newIndex }) => onSortEnd({ oldIndex, newIndex, taskType: 'firstPriority' }) }
                         tasks={ tasks.firstPriority.sort(sortTasks) }
                         taskType="firstPriority"
@@ -229,6 +231,7 @@ export default function App () {
                     <SortableTasks
                         pressDelay={ 50 }
                         lockAxis="y"
+                        useWindowAsScrollContainer={ true }
                         onSortEnd={ ({ oldIndex, newIndex }) => onSortEnd({ oldIndex, newIndex, taskType: 'secondPriority' }) }
                         tasks={ tasks.secondPriority.sort(sortTasks) }
                         taskType="secondPriority"
