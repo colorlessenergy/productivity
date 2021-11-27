@@ -25,7 +25,7 @@ A Progressive Web App to organize and complete tasks.
 
 ### 🏆 reward
 
-completing all the tasks redirects to a celebration page
+completing all tasks redirects to celebration page
 
 ### ☀️ themes 🌙
 
