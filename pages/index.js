@@ -32,7 +32,7 @@ export default function Home () {
 
     const [ formPart, setFormPart ] = useState(0);
     useEffect(() => {
-        if (formPart === 'done') {
+        if (formPart === 'done' || (tasks.allTasks.length === 0 && formPart >= 2)) {
             localStorage.setItem('visitedCelebrationPage', JSON.stringify(false));
             localStorage.setItem('tasks', JSON.stringify(tasks));
             router.replace('/app')
