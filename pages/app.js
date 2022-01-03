@@ -23,7 +23,7 @@ const SortableTask = SortableElement(({ task, taskType, handleCheckboxChange, op
 
 const SortableTasks = SortableContainer(({ tasks, taskType, handleCheckboxChange, openEditTaskModal }) => {
     return (
-        <div>
+        <div className="tasks-container">
             { tasks.map((task, index) => (
                 <SortableTask
                     key={ task.ID }
