@@ -3,78 +3,262 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import Nav from '../shared/components/Nav';
-import First from '../shared/components/Forms/First';
-import Second from '../shared/components/Forms/Second';
-import Third from '../shared/components/Forms/Third';
-import Fourth from '../shared/components/Forms/Fourth';
+import Task from '../shared/components/Task';
+import Modal from '../shared/components/Modal/Modal';
+import EditTask from '../shared/components/EditTask';
+import AddTask from '../shared/components/AddTask';
 
-export default function Home () {
-    const [ tasks, setTasks ] = useState({
-        allTasks: [],
-        quickTasks: [],
-        firstPriority: [],
-        secondPriority: []
-    });
+import { SortableContainer, SortableElement } from 'react-sortable-hoc';
+import { arrayMoveImmutable } from 'array-move';
 
-    const router = useRouter(); 
+const SortableTask = SortableElement(({ task, taskType, handleCheckboxChange, openEditTaskModal }) => {
+    return (
+        <Task
+            task={ task }
+            taskType={ taskType }
+            handleCheckboxChange={ handleCheckboxChange }
+            openEditTaskModal={ openEditTaskModal } />
+    );
+});
 
+const SortableTasks = SortableContainer(({ tasks, taskType, handleCheckboxChange, openEditTaskModal }) => {
+    return (
+        <div className="tasks-container">
+            { tasks.map((task, index) => (
+                <SortableTask
+                    key={ task.ID }
+                    index={ index }
+                    task={ task }
+                    taskType={ taskType }
+                    handleCheckboxChange={ handleCheckboxChange }
+                    openEditTaskModal={ openEditTaskModal } />
+            )) }
+        </div>
+    );
+});
+
+export default function App () {
+    const [ tasks, setTasks ] = useState({});
     useEffect(() => {
-        let tasks = localStorage.getItem('tasks');
-        if (!tasks) return;
-        tasks = JSON.parse(tasks);
-        const taskTypes = ['quickTasks', 'firstPriority', 'secondPriority'];
-        for (let i = 0; i < taskTypes.length; i++) {
-            for (let j = 0; j < tasks[taskTypes[ i ]].length; j++ ) {
-                if (tasks[ taskTypes[i] ][ j ].isDone === false) return router.replace('/app');
-            }
-        }
+        setTasks(JSON.parse(localStorage.getItem('tasks')));
     }, []);
 
-    const [ formPart, setFormPart ] = useState(0);
+    const handleCheckboxChange = ({ task, taskType }) => {
+        let cloneTasks = JSON.parse(JSON.stringify(tasks));
+        const taskIndex = cloneTasks[ taskType ].findIndex(cloneTask => cloneTask.ID === task.ID);
+        cloneTasks[ taskType ][ taskIndex ] = { ...cloneTasks[ taskType ][ taskIndex ], isDone: !cloneTasks[ taskType ][ taskIndex ].isDone }
+
+        setTasks(cloneTasks);
+        localStorage.setItem('visitedCelebrationPage', JSON.stringify(false));
+        localStorage.setItem('tasks', JSON.stringify(cloneTasks));
+    }
+
+    const router = useRouter();
     useEffect(() => {
-        if (formPart === 'done' || (tasks.allTasks.length === 0 && formPart >= 2)) {
-            localStorage.setItem('visitedCelebrationPage', JSON.stringify(false));
-            localStorage.setItem('tasks', JSON.stringify(tasks));
-            router.replace('/app')
+        if (!tasks.quickTasks && !tasks.firstPriority && !tasks.secondPriority || JSON.parse(localStorage.getItem('visitedCelebrationPage'))) return;
+
+        if (tasks.quickTasks.filter(task => task.isDone === false).length === 0 &&
+            tasks.firstPriority.filter(task => task.isDone === false).length === 0 &&
+            tasks.secondPriority.filter(task => task.isDone === false).length === 0) {
+                localStorage.setItem('visitedCelebrationPage', JSON.stringify(true));
+                router.replace('/celebration');
         }
-    }, [ formPart ]);
+    }, [ tasks ]);
+
+    const [ isEditTaskModalOpen, setIsEditTaskModalOpen ] = useState(false);
+    const toggleEditTaskModal = () => {
+        setIsEditTaskModalOpen(previousIsEditTaskModalOpen => !previousIsEditTaskModalOpen);
+    }
+
+    const [ taskToEdit, setTaskToEdit ] = useState({});
+    const openEditTaskModal = ({ task, taskType }) => {
+        toggleEditTaskModal();
+        setTaskToEdit({ ...task, taskType })
+    }
+    
+    const editTask = () => {
+        const cloneTasks = JSON.parse(JSON.stringify(tasks));
+        const taskIndex = cloneTasks[ taskToEdit.taskType ].findIndex(task => task.ID === taskToEdit.ID);
+        cloneTasks[ taskToEdit.taskType ][ taskIndex ] = {
+            ID: taskToEdit.ID,
+            isDone: taskToEdit.isDone,
+            task: taskToEdit.task
+        }
+        setTasks(cloneTasks);
+        localStorage.setItem('tasks', JSON.stringify(cloneTasks));
+
+        toggleEditTaskModal();
+    }
+
+    const deleteTask = () => {
+        const cloneTasks = JSON.parse(JSON.stringify(tasks));
+        const taskIndex = cloneTasks[ taskToEdit.taskType ].findIndex(task => task.ID === taskToEdit.ID);
+        cloneTasks[ taskToEdit.taskType ].splice(taskIndex, 1);
+        setTasks(cloneTasks);
+        localStorage.setItem('tasks', JSON.stringify(cloneTasks));
+
+        toggleEditTaskModal();
+    }
+
+    const sortTasks = (taskOne, taskTwo) => {
+        if (taskOne.isDone === taskTwo.isDone) {
+            return 0;
+        } else if (taskOne.isDone) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+
+    const [ isAddTaskModalOpen, setIsAddTaskModalOpen ] = useState(false);
+    const [ addTaskType, setAddTaskType ] = useState('');
+    const addTask = (taskText) => {
+        let ID = JSON.parse(localStorage.getItem('ID'));
+        ID += 1;
+        const task = { ID, task: taskText, isDone: false };
+
+        let cloneTasks = JSON.parse(JSON.stringify(tasks));
+        cloneTasks[ addTaskType ].push(task);
+
+        setTasks(cloneTasks);
+        localStorage.setItem('tasks', JSON.stringify(cloneTasks));
+        localStorage.setItem('ID', JSON.stringify(ID));
+        toggleAddTaskModal();
+    }
+
+    const toggleAddTaskModal = (taskType) => {
+        setIsAddTaskModalOpen(previousIsAddTaskModalOpen => {
+            if (previousIsAddTaskModalOpen === false) {
+                setAddTaskType(taskType);
+                return true;
+            } else {
+                setAddTaskType('');
+                return false;
+            }
+        });
+    }
+
+    const onSortEnd = ({ oldIndex, newIndex, taskType }) => {
+        setTasks(previousTasks => {
+            const tasks = {
+                ...previousTasks,
+                [ taskType ]: arrayMoveImmutable(previousTasks[ taskType ], oldIndex, newIndex),
+            };
+
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            return tasks;
+        });
+    };
 
     return (
         <div>
             <Head>
-                <title>questions - productivity</title>
-                <meta name="description" content="questions - productivity" />
+                <title>app - productivity</title>
+                <meta name="description" content="app - productivity" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
             <div className="container">
                 <Nav />
-                { formPart === 0 ? (
-                    <First
-                        setTasks={ setTasks }
-                        setFormPart={ setFormPart } />
+
+                <div className="flex align-items-center justify-content-between">
+                    <h2 className="font-size-2 font-weight-bold color-dark-blue">quick tasks</h2>
+
+                    <button onClick={ () => toggleAddTaskModal('quickTasks') }>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            height="24"
+                            className="icon">
+                            <path fill="none" d="M0 0h24v24H0z"/>
+                            <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/>
+                        </svg>
+                    </button>
+                </div>
+                { tasks.quickTasks ? (
+                    <SortableTasks
+                        distance={ 1 }
+                        lockAxis="y"
+                        useWindowAsScrollContainer={ true }
+                        onSortEnd={ ({ oldIndex, newIndex }) => onSortEnd({ oldIndex, newIndex, taskType: 'quickTasks' }) }
+                        tasks={ tasks.quickTasks.sort(sortTasks) }
+                        taskType="quickTasks"
+                        handleCheckboxChange={ handleCheckboxChange }
+                        openEditTaskModal={ openEditTaskModal } />
                 ) : (null) }
 
+                <div className="flex align-items-center justify-content-between">
+                    <h2 className="font-size-2 font-weight-bold color-dark-blue">priority 1</h2>
 
-                { formPart === 1 ? (
-                    <Second
-                        tasks={ tasks.allTasks }
-                        setTasks={ setTasks }
-                        setFormPart={ setFormPart } />
+                    <button onClick={ () => toggleAddTaskModal('firstPriority') }>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            height="24"
+                            className="icon">
+                            <path fill="none" d="M0 0h24v24H0z"/>
+                            <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/>
+                        </svg>
+                    </button>
+                </div>
+                { tasks.firstPriority ? (
+                    <SortableTasks
+                        distance={ 1 }
+                        lockAxis="y"
+                        useWindowAsScrollContainer={ true }
+                        onSortEnd={ ({ oldIndex, newIndex }) => onSortEnd({ oldIndex, newIndex, taskType: 'firstPriority' }) }
+                        tasks={ tasks.firstPriority.sort(sortTasks) }
+                        taskType="firstPriority"
+                        handleCheckboxChange={ handleCheckboxChange }
+                        openEditTaskModal={ openEditTaskModal } />
                 ) : (null) }
 
-                { formPart === 2 ? (
-                    <Third
-                        tasks={ tasks.allTasks }
-                        setTasks={ setTasks }
-                        setFormPart={ setFormPart } />
+                <div className="flex align-items-center justify-content-between">
+                    <h2 className="font-size-2 font-weight-bold color-dark-blue">priority 2</h2>
+
+                    <button onClick={ () => toggleAddTaskModal('secondPriority') }>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            height="24"
+                            className="icon">
+                            <path fill="none" d="M0 0h24v24H0z"/>
+                            <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/>
+                        </svg>
+                    </button>
+                </div>
+                { tasks.secondPriority ? (
+                    <SortableTasks
+                        distance={ 1 }
+                        lockAxis="y"
+                        useWindowAsScrollContainer={ true }
+                        onSortEnd={ ({ oldIndex, newIndex }) => onSortEnd({ oldIndex, newIndex, taskType: 'secondPriority' }) }
+                        tasks={ tasks.secondPriority.sort(sortTasks) }
+                        taskType="secondPriority"
+                        handleCheckboxChange={ handleCheckboxChange }
+                        openEditTaskModal={ openEditTaskModal } />
                 ) : (null) }
 
-                { formPart === 3 ? (
-                    <Fourth
-                        tasks={ tasks.allTasks }
-                        setTasks={ setTasks }
-                        setFormPart={ setFormPart } />
+                { isEditTaskModalOpen ? (
+                    <Modal isOpen={ isEditTaskModalOpen }>
+                        <EditTask
+                            taskToEdit={ taskToEdit }
+                            setTaskToEdit={ setTaskToEdit }
+                            handleSubmit={ editTask }
+                            toggleEditTaskModal={ toggleEditTaskModal }
+                            deleteTask={ deleteTask } />
+                    </Modal>
+                ) : (null) }
+
+                { isAddTaskModalOpen ? (
+                    <Modal isOpen={ isAddTaskModalOpen }>
+                        <AddTask
+                            handleSubmit={ addTask }
+                            toggleAddTaskModal={ toggleAddTaskModal } />
+                    </Modal>
                 ) : (null) }
             </div>
         </div>

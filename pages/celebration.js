@@ -31,19 +31,12 @@ export default function Celebration () {
                         height={ 360 }
                         width={ 480 } />
 
-                    <div className="flex justify-content-between mt-1">
-                        <Link href="/app">
-                            <a className="button background-color-green color-black">
-                                return to tasks
-                            </a>
-                        </Link>
 
-                        <Link href="/">
-                            <a className="button background-color-yellow color-black">
-                                create new tasks
-                            </a>
-                        </Link>
-                    </div>
+                    <Link href="/">
+                        <a className="button background-color-yellow color-black">
+                            return to tasks
+                        </a>
+                    </Link>
                 </div>
 
                 { typeof window !== 'undefined' ? (
