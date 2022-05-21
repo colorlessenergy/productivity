@@ -12,12 +12,12 @@ import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import { arrayMoveImmutable } from 'array-move';
 
 const SortableTask = SortableElement(
-    ({ task, taskType, handleCheckboxChange, openEditTaskModal }) => {
+    ({ task, taskType, setTasks, openEditTaskModal }) => {
         return (
             <Task
                 task={task}
                 taskType={taskType}
-                handleCheckboxChange={handleCheckboxChange}
+                setTasks={setTasks}
                 openEditTaskModal={openEditTaskModal}
             />
         );
@@ -25,7 +25,7 @@ const SortableTask = SortableElement(
 );
 
 const SortableTasks = SortableContainer(
-    ({ tasks, taskType, handleCheckboxChange, openEditTaskModal }) => {
+    ({ tasks, taskType, setTasks, openEditTaskModal }) => {
         return (
             <div className="tasks-container">
                 {tasks.map((task, index) => (
@@ -34,7 +34,7 @@ const SortableTasks = SortableContainer(
                         index={index}
                         task={task}
                         taskType={taskType}
-                        handleCheckboxChange={handleCheckboxChange}
+                        setTasks={setTasks}
                         openEditTaskModal={openEditTaskModal}
                     />
                 ))}
@@ -48,21 +48,6 @@ export default function App() {
     useEffect(() => {
         setTasks(JSON.parse(localStorage.getItem('tasks')));
     }, []);
-
-    const handleCheckboxChange = ({ task, taskType }) => {
-        let cloneTasks = JSON.parse(JSON.stringify(tasks));
-        const taskIndex = cloneTasks[taskType].findIndex(
-            cloneTask => cloneTask.ID === task.ID
-        );
-        cloneTasks[taskType][taskIndex] = {
-            ...cloneTasks[taskType][taskIndex],
-            isDone: !cloneTasks[taskType][taskIndex].isDone
-        };
-
-        setTasks(cloneTasks);
-        localStorage.setItem('visitedCelebrationPage', JSON.stringify(false));
-        localStorage.setItem('tasks', JSON.stringify(cloneTasks));
-    };
 
     const router = useRouter();
     useEffect(() => {
@@ -113,18 +98,6 @@ export default function App() {
             isDone: taskToEdit.isDone,
             task: taskToEdit.task
         };
-        setTasks(cloneTasks);
-        localStorage.setItem('tasks', JSON.stringify(cloneTasks));
-
-        toggleEditTaskModal();
-    };
-
-    const deleteTask = () => {
-        const cloneTasks = JSON.parse(JSON.stringify(tasks));
-        const taskIndex = cloneTasks[taskToEdit.taskType].findIndex(
-            task => task.ID === taskToEdit.ID
-        );
-        cloneTasks[taskToEdit.taskType].splice(taskIndex, 1);
         setTasks(cloneTasks);
         localStorage.setItem('tasks', JSON.stringify(cloneTasks));
 
@@ -228,7 +201,7 @@ export default function App() {
                         }
                         tasks={tasks.quickTasks.sort(sortTasks)}
                         taskType="quickTasks"
-                        handleCheckboxChange={handleCheckboxChange}
+                        setTasks={setTasks}
                         openEditTaskModal={openEditTaskModal}
                     />
                 ) : null}
@@ -265,7 +238,7 @@ export default function App() {
                         }
                         tasks={tasks.firstPriority.sort(sortTasks)}
                         taskType="firstPriority"
-                        handleCheckboxChange={handleCheckboxChange}
+                        setTasks={setTasks}
                         openEditTaskModal={openEditTaskModal}
                     />
                 ) : null}
@@ -304,7 +277,7 @@ export default function App() {
                         }
                         tasks={tasks.secondPriority.sort(sortTasks)}
                         taskType="secondPriority"
-                        handleCheckboxChange={handleCheckboxChange}
+                        setTasks={setTasks}
                         openEditTaskModal={openEditTaskModal}
                     />
                 ) : null}
@@ -316,7 +289,6 @@ export default function App() {
                             setTaskToEdit={setTaskToEdit}
                             handleSubmit={editTask}
                             toggleEditTaskModal={toggleEditTaskModal}
-                            deleteTask={deleteTask}
                         />
                     </Modal>
                 ) : null}
