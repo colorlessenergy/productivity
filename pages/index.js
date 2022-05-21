@@ -50,9 +50,11 @@ export default function App() {
             localStorage.setItem(
                 'tasks',
                 JSON.stringify({
-                    quickTasks: [],
-                    firstPriority: [],
-                    secondPriority: []
+                    quickTasks: [{ ID: 1, task: 'drink water', isDone: false }],
+                    firstPriority: [
+                        { ID: 2, task: 'create grocery list', isDone: false }
+                    ],
+                    secondPriority: [{ ID: 3, task: 'read', isDone: false }]
                 })
             );
         }
