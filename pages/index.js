@@ -51,6 +51,10 @@ export default function App() {
 
     const router = useRouter();
     useEffect(() => {
+        if (!tasks) {
+            return;
+        }
+
         if (
             (!tasks.quickTasks &&
                 !tasks.firstPriority &&
@@ -187,7 +191,7 @@ export default function App() {
                         </svg>
                     </button>
                 </div>
-                {tasks.quickTasks ? (
+                {tasks && tasks.quickTasks ? (
                     <SortableTasks
                         distance={1}
                         lockAxis="y"
@@ -224,7 +228,7 @@ export default function App() {
                         </svg>
                     </button>
                 </div>
-                {tasks.firstPriority ? (
+                {tasks && tasks.firstPriority ? (
                     <SortableTasks
                         distance={1}
                         lockAxis="y"
@@ -263,7 +267,7 @@ export default function App() {
                         </svg>
                     </button>
                 </div>
-                {tasks.secondPriority ? (
+                {tasks && tasks.secondPriority ? (
                     <SortableTasks
                         distance={1}
                         lockAxis="y"
