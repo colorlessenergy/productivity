@@ -46,15 +46,22 @@ const SortableTasks = SortableContainer(
 export default function App() {
     const [tasks, setTasks] = useState({});
     useEffect(() => {
+        if (!localStorage.getItem('tasks')) {
+            localStorage.setItem(
+                'tasks',
+                JSON.stringify({
+                    quickTasks: [],
+                    firstPriority: [],
+                    secondPriority: []
+                })
+            );
+        }
+
         setTasks(JSON.parse(localStorage.getItem('tasks')));
     }, []);
 
     const router = useRouter();
     useEffect(() => {
-        if (!tasks) {
-            return;
-        }
-
         if (
             (!tasks.quickTasks &&
                 !tasks.firstPriority &&
@@ -191,7 +198,7 @@ export default function App() {
                         </svg>
                     </button>
                 </div>
-                {tasks && tasks.quickTasks ? (
+                {tasks.quickTasks ? (
                     <SortableTasks
                         distance={1}
                         lockAxis="y"
@@ -228,7 +235,7 @@ export default function App() {
                         </svg>
                     </button>
                 </div>
-                {tasks && tasks.firstPriority ? (
+                {tasks.firstPriority ? (
                     <SortableTasks
                         distance={1}
                         lockAxis="y"
@@ -267,7 +274,7 @@ export default function App() {
                         </svg>
                     </button>
                 </div>
-                {tasks && tasks.secondPriority ? (
+                {tasks.secondPriority ? (
                     <SortableTasks
                         distance={1}
                         lockAxis="y"

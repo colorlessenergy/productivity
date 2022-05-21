@@ -3,17 +3,6 @@ import '../styles/globals.scss';
 
 function MyApp({ Component, pageProps }) {
     useEffect(() => {
-        if (!localStorage.getItem('tasks')) {
-            localStorage.setItem(
-                'tasks',
-                JSON.stringify({
-                    quickTasks: [],
-                    firstPriority: [],
-                    secondPriority: []
-                })
-            );
-        }
-
         if (!localStorage.getItem('ID')) {
             localStorage.setItem('ID', JSON.stringify(0));
         }
