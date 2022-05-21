@@ -26,7 +26,7 @@ const Task = ({ task, taskType, setTasks, openEditTaskModal }) => {
 
     return (
         <div
-            className={`border-3 flex align-items-center justify-content-between mb-1 ${
+            className={`task flex align-items-center justify-content-between mb-1 ${
                 task.isDone ? 'opacity-5' : ''
             }`}
         >
