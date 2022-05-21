@@ -31,12 +31,13 @@ export default function Celebration () {
                         height={ 360 }
                         width={ 480 } />
 
-
-                    <Link href="/">
-                        <a className="button background-color-yellow color-black">
-                            return to tasks
-                        </a>
-                    </Link>
+                    <div>
+                        <Link href="/">
+                            <a className="button background-color-yellow color-black d-inline-block mt-1">
+                                return to tasks
+                            </a>
+                        </Link>
+                    </div>
                 </div>
 
                 { typeof window !== 'undefined' ? (
