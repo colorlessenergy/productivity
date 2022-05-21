@@ -4,11 +4,11 @@ import classes from './Modal.module.css';
 
 const Modal = ({ isOpen, toggleModal, children }) => {
     const modalRef = useRef(null);
-    const handleCloseModal = (event) => {
+    const handleCloseModal = event => {
         if (modalRef.current === event.target) {
             toggleModal();
         }
-    }
+    };
 
     useEffect(() => {
         if (isOpen) {
@@ -19,19 +19,18 @@ const Modal = ({ isOpen, toggleModal, children }) => {
 
         return () => {
             document.body.classList.remove('modal-is-open');
-        }
-    }, [ isOpen ]);
+        };
+    }, [isOpen]);
 
     return (
-       <div
-        ref={ modalRef }
-        onClick={ toggleModal === undefined ? (null) : (handleCloseModal) }
-        className={`${ classes["modal"] } ${ isOpen ? "flex" : "d-none" }`}>
-           <div className={classes["modal-content"]}>
-               { children }
-            </div>
-       </div>
+        <div
+            ref={modalRef}
+            onClick={toggleModal === undefined ? null : handleCloseModal}
+            className={`${classes['modal']} ${isOpen ? 'flex' : 'd-none'}`}
+        >
+            <div className={classes['modal-content']}>{children}</div>
+        </div>
     );
-}
+};
 
 export default Modal;

@@ -4,6 +4,6 @@ module.exports = withPWA({
     reactStrictMode: true,
     pwa: {
         dest: 'public',
-		buildExcludes: [/middleware-manifest.json$/]
+        buildExcludes: [/middleware-manifest.json$/]
     }
 });
