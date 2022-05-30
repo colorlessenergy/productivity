@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -6,6 +7,27 @@ import Nav from '../shared/components/Nav';
 import Confetti from 'react-confetti';
 
 export default function Celebration() {
+    useEffect(() => {
+        const tasks = JSON.parse(localStorage.getItem('tasks'));
+
+        tasks.quickTasks = tasks.quickTasks.map(task => ({
+            ...task,
+            isDone: false
+        }));
+
+        tasks.firstPriority = tasks.firstPriority.map(task => ({
+            ...task,
+            isDone: false
+        }));
+
+        tasks.secondPriority = tasks.secondPriority.map(task => ({
+            ...task,
+            isDone: false
+        }));
+
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }, []);
+
     return (
         <div>
             <Head>
