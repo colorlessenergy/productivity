@@ -3,6 +3,10 @@ import '../styles/globals.scss';
 
 function MyApp({ Component, pageProps }) {
     useEffect(() => {
+        if (!localStorage.getItem('taskCount')) {
+            localStorage.setItem('taskCount', JSON.stringify({}));
+        }
+
         if (!localStorage.getItem('ID')) {
             localStorage.setItem('ID', JSON.stringify(3));
         }

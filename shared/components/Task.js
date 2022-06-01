@@ -12,6 +12,18 @@ const Task = ({ task, taskType, setTasks, openEditTaskModal }) => {
         setTasks(cloneTasks);
         localStorage.setItem('visitedCelebrationPage', JSON.stringify(false));
         localStorage.setItem('tasks', JSON.stringify(cloneTasks));
+
+        let taskCount = JSON.parse(localStorage.getItem('taskCount'));
+        if (!task.isDone) {
+            if (taskCount[task.task]) {
+                taskCount[task.task] += 1;
+            } else {
+                taskCount[task.task] = 1;
+            }
+        } else {
+            taskCount[task.task] -= 1;
+        }
+        localStorage.setItem('taskCount', JSON.stringify(taskCount));
     };
 
     const deleteTask = () => {
