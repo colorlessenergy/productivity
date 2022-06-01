@@ -14,14 +14,15 @@ const Task = ({ task, taskType, setTasks, openEditTaskModal }) => {
         localStorage.setItem('tasks', JSON.stringify(cloneTasks));
 
         let taskCount = JSON.parse(localStorage.getItem('taskCount'));
+        const taskText = task.task.toLowerCase().trim();
         if (!task.isDone) {
-            if (taskCount[task.task]) {
-                taskCount[task.task] += 1;
+            if (taskCount[taskText]) {
+                taskCount[taskText] += 1;
             } else {
-                taskCount[task.task] = 1;
+                taskCount[taskText] = 1;
             }
         } else {
-            taskCount[task.task] -= 1;
+            taskCount[taskText] -= 1;
         }
         localStorage.setItem('taskCount', JSON.stringify(taskCount));
     };
