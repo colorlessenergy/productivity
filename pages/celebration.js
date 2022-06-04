@@ -26,6 +26,16 @@ export default function Celebration() {
         }));
 
         localStorage.setItem('tasks', JSON.stringify(tasks));
+
+        let streak = JSON.parse(localStorage.getItem('streak'));
+
+        const date = new Date();
+        const formatDate = `${
+            date.getMonth() + 1
+        }-${date.getDate()}-${date.getFullYear()}`;
+
+        streak[formatDate] = 1;
+        localStorage.setItem('streak', JSON.stringify(streak));
     }, []);
 
     return (

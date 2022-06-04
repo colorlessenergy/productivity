@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 
 import Nav from '../shared/components/Nav';
+import Streak from '../shared/components/Streak';
 
 const Stats = () => {
     const [taskCount, setTaskCount] = useState({});
@@ -28,6 +29,8 @@ const Stats = () => {
                 <Nav />
 
                 <h1 className="m-0 font-size-4">stats</h1>
+
+                <Streak />
 
                 <h2 className="mb-1 font-size-3">task count</h2>
 

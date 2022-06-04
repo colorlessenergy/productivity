@@ -6,8 +6,13 @@ body.dark {
 }
 
 .dark .checkbox,
-.dark .task {
+.dark .task,
+.dark .streak-circle {
     border-color: #ffffff;
+}
+
+.dark .streak-circle-active {
+    background-color: #ffffff;
 }
 
 .dark .color-dark-blue {

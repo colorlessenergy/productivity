@@ -43,3 +43,22 @@ body.modal-is-open {
     border: 2px solid #000000;
     border-bottom-width: 8px;
 }
+
+.streak {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 300px;
+}
+
+.streak-circle {
+    border: 1px solid #333333;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    margin-right: $space-1;
+    margin-bottom: $space-1;
+}
+
+.streak-circle-active {
+    background-color: #333333;
+}
