@@ -4,7 +4,7 @@ A Progressive Web App to organize and complete tasks.
 
 [visit web app](https://productivity1.vercel.app/)
 
-![productivity tasks page](https://github.com/colorlessenergy/productivity/blob/main/README.gif 'productivity tasks page')
+![productivity tasks page](https://github.com/colorlessenergy/productivity/blob/main/README.png 'productivity tasks page')
 
 ## technologies
 
