@@ -1,6 +1,7 @@
 @use 'variables.scss' as *;
 
-body.dark {
+body.dark,
+.dark .task-list-header {
     background-color: $dark-mode-background-color;
     color: #ffffff;
 }

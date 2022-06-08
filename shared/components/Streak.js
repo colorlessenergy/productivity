@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 const Streak = () => {
     const [streak, setStreak] = useState({});
@@ -21,7 +22,7 @@ const Streak = () => {
             }-${date.getFullYear()}`;
 
             if (streak[formatDate]) {
-                days[i] = true;
+                days[i] = formatDate;
                 continue;
             }
 
@@ -46,10 +47,9 @@ const Streak = () => {
                 {streakForMonth().map((day, index) => {
                     if (day) {
                         return (
-                            <div
-                                key={index}
-                                className="streak-circle streak-circle-active"
-                            ></div>
+                            <Link key={index} href={`streaks/${day}`}>
+                                <a className="streak-circle streak-circle-active"></a>
+                            </Link>
                         );
                     }
 

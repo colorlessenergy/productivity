@@ -8,7 +8,7 @@ import Confetti from 'react-confetti';
 
 export default function Celebration() {
     useEffect(() => {
-        const tasks = JSON.parse(localStorage.getItem('tasks'));
+        let tasks = JSON.parse(localStorage.getItem('tasks'));
 
         tasks.quickTasks = tasks.quickTasks.map(task => ({
             ...task,
@@ -34,7 +34,12 @@ export default function Celebration() {
             date.getMonth() + 1
         }-${date.getDate()}-${date.getFullYear()}`;
 
-        streak[formatDate] = 1;
+        if (streak[formatDate]) {
+            streak[formatDate].push(tasks);
+        } else {
+            streak[formatDate] = [tasks];
+        }
+
         localStorage.setItem('streak', JSON.stringify(streak));
     }, []);
 
