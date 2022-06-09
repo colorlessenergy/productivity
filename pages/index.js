@@ -225,6 +225,7 @@ export default function App() {
                         </button>
                         <button
                             onClick={() => toggleAddTaskModal('quickTasks')}
+                            title="add task"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -280,6 +281,7 @@ export default function App() {
 
                         <button
                             onClick={() => toggleAddTaskModal('firstPriority')}
+                            title="add task"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -335,6 +337,7 @@ export default function App() {
 
                         <button
                             onClick={() => toggleAddTaskModal('secondPriority')}
+                            title="add task"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
