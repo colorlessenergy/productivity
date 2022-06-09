@@ -171,6 +171,27 @@ export default function App() {
         });
     };
 
+    const resetTasks = type => {
+        let taskCount = JSON.parse(localStorage.getItem('taskCount'));
+        let cloneTasks = JSON.parse(JSON.stringify(tasks));
+
+        cloneTasks[type] = cloneTasks[type].map(task => {
+            const taskText = task.task.toLowerCase().trim();
+            if (task.isDone) {
+                taskCount[taskText] -= 1;
+            }
+
+            return {
+                ...task,
+                isDone: false
+            };
+        });
+
+        localStorage.setItem('taskCount', JSON.stringify(taskCount));
+        setTasks(cloneTasks);
+        localStorage.setItem('tasks', JSON.stringify(cloneTasks));
+    };
+
     return (
         <div>
             <Head>
@@ -187,18 +208,35 @@ export default function App() {
                         quick tasks
                     </h2>
 
-                    <button onClick={() => toggleAddTaskModal('quickTasks')}>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            width="24"
-                            height="24"
-                            className="icon"
+                    <div>
+                        <button
+                            onClick={() => resetTasks('quickTasks')}
+                            title="reset quick tasks"
                         >
-                            <path fill="none" d="M0 0h24v24H0z" />
-                            <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
-                        </svg>
-                    </button>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                width="24"
+                                height="24"
+                                className="icon"
+                            >
+                                <path d="M18.537 19.567A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10c0 2.136-.67 4.116-1.81 5.74L17 12h3a8 8 0 1 0-2.46 5.772l.997 1.795z" />
+                            </svg>
+                        </button>
+                        <button
+                            onClick={() => toggleAddTaskModal('quickTasks')}
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                width="24"
+                                height="24"
+                                className="icon"
+                            >
+                                <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
                 {tasks.quickTasks ? (
                     <SortableTasks
@@ -224,18 +262,36 @@ export default function App() {
                         priority 1
                     </h2>
 
-                    <button onClick={() => toggleAddTaskModal('firstPriority')}>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            width="24"
-                            height="24"
-                            className="icon"
+                    <div>
+                        <button
+                            onClick={() => resetTasks('firstPriority')}
+                            title="reset priority 1 tasks"
                         >
-                            <path fill="none" d="M0 0h24v24H0z" />
-                            <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
-                        </svg>
-                    </button>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                width="24"
+                                height="24"
+                                className="icon"
+                            >
+                                <path d="M18.537 19.567A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10c0 2.136-.67 4.116-1.81 5.74L17 12h3a8 8 0 1 0-2.46 5.772l.997 1.795z" />
+                            </svg>
+                        </button>
+
+                        <button
+                            onClick={() => toggleAddTaskModal('firstPriority')}
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                width="24"
+                                height="24"
+                                className="icon"
+                            >
+                                <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
                 {tasks.firstPriority ? (
                     <SortableTasks
@@ -261,20 +317,36 @@ export default function App() {
                         priority 2
                     </h2>
 
-                    <button
-                        onClick={() => toggleAddTaskModal('secondPriority')}
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            width="24"
-                            height="24"
-                            className="icon"
+                    <div>
+                        <button
+                            onClick={() => resetTasks('secondPriority')}
+                            title="reset priority 2 tasks"
                         >
-                            <path fill="none" d="M0 0h24v24H0z" />
-                            <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
-                        </svg>
-                    </button>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                width="24"
+                                height="24"
+                                className="icon"
+                            >
+                                <path d="M18.537 19.567A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10c0 2.136-.67 4.116-1.81 5.74L17 12h3a8 8 0 1 0-2.46 5.772l.997 1.795z" />
+                            </svg>
+                        </button>
+
+                        <button
+                            onClick={() => toggleAddTaskModal('secondPriority')}
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                width="24"
+                                height="24"
+                                className="icon"
+                            >
+                                <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
                 {tasks.secondPriority ? (
                     <SortableTasks
