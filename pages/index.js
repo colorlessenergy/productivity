@@ -51,10 +51,10 @@ export default function App() {
                 'tasks',
                 JSON.stringify({
                     quickTasks: [{ ID: 1, task: 'drink water', isDone: false }],
-                    firstPriority: [
+                    mediumTasks: [
                         { ID: 2, task: 'create grocery list', isDone: false }
                     ],
-                    secondPriority: [{ ID: 3, task: 'read', isDone: false }]
+                    largeTasks: [{ ID: 3, task: 'read', isDone: false }]
                 })
             );
         }
@@ -65,9 +65,7 @@ export default function App() {
     const router = useRouter();
     useEffect(() => {
         if (
-            (!tasks.quickTasks &&
-                !tasks.firstPriority &&
-                !tasks.secondPriority) ||
+            (!tasks.quickTasks && !tasks.mediumTasks && !tasks.largeTasks) ||
             JSON.parse(localStorage.getItem('visitedCelebrationPage'))
         )
             return;
@@ -75,10 +73,9 @@ export default function App() {
         if (
             tasks.quickTasks.filter(task => task.isDone === false).length ===
                 0 &&
-            tasks.firstPriority.filter(task => task.isDone === false).length ===
+            tasks.mediumTasks.filter(task => task.isDone === false).length ===
                 0 &&
-            tasks.secondPriority.filter(task => task.isDone === false)
-                .length === 0
+            tasks.largeTasks.filter(task => task.isDone === false).length === 0
         ) {
             localStorage.setItem(
                 'visitedCelebrationPage',
@@ -204,7 +201,16 @@ export default function App() {
                 <Nav />
 
                 <div className="flex align-items-center justify-content-between">
-                    <h2 className="font-size-2 font-weight-bold color-dark-blue">
+                    <h2 className="flex align-items-center font-size-2 font-weight-bold color-dark-blue">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            height="24"
+                            className="icon mr-1"
+                        >
+                            <path d="M19 20H5v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9l2.513-6.702A2 2 0 0 1 6.386 4h11.228a2 2 0 0 1 1.873 1.298L22 12v9a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1zM4.136 12h15.728l-2.25-6H6.386l-2.25 6zM6.5 17a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm11 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
+                        </svg>{' '}
                         quick tasks
                     </h2>
 
@@ -259,14 +265,23 @@ export default function App() {
                 ) : null}
 
                 <div className="flex align-items-center justify-content-between">
-                    <h2 className="font-size-2 font-weight-bold color-dark-blue">
-                        priority 1
+                    <h2 className="flex align-items-center font-size-2 font-weight-bold color-dark-blue">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            height="24"
+                            className="icon mr-1"
+                        >
+                            <path d="M17 8h3l3 4.056V18h-2.035a3.5 3.5 0 0 1-6.93 0h-5.07a3.5 3.5 0 0 1-6.93 0H1V6a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2zm0 2v3h4v-.285L18.992 10H17z" />
+                        </svg>{' '}
+                        medium tasks
                     </h2>
 
                     <div>
                         <button
-                            onClick={() => resetTasks('firstPriority')}
-                            title="reset priority 1 tasks"
+                            onClick={() => resetTasks('mediumTasks')}
+                            title="reset medium tasks"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -280,8 +295,8 @@ export default function App() {
                         </button>
 
                         <button
-                            onClick={() => toggleAddTaskModal('firstPriority')}
-                            title="add priority 1 task"
+                            onClick={() => toggleAddTaskModal('mediumTasks')}
+                            title="add medium task"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -295,7 +310,7 @@ export default function App() {
                         </button>
                     </div>
                 </div>
-                {tasks.firstPriority ? (
+                {tasks.mediumTasks ? (
                     <SortableTasks
                         distance={1}
                         lockAxis="y"
@@ -304,25 +319,34 @@ export default function App() {
                             onSortEnd({
                                 oldIndex,
                                 newIndex,
-                                taskType: 'firstPriority'
+                                taskType: 'mediumTasks'
                             })
                         }
-                        tasks={tasks.firstPriority.sort(sortTasks)}
-                        taskType="firstPriority"
+                        tasks={tasks.mediumTasks.sort(sortTasks)}
+                        taskType="mediumTasks"
                         setTasks={setTasks}
                         openEditTaskModal={openEditTaskModal}
                     />
                 ) : null}
 
                 <div className="flex align-items-center justify-content-between">
-                    <h2 className="font-size-2 font-weight-bold color-dark-blue">
-                        priority 2
+                    <h2 className="flex align-items-center font-size-2 font-weight-bold color-dark-blue">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            height="24"
+                            className="icon mr-1"
+                        >
+                            <path d="M9 4h5.446a1 1 0 0 1 .848.47L18.75 10h4.408a.5.5 0 0 1 .439.74l-3.937 7.217A4.992 4.992 0 0 1 15 16 4.992 4.992 0 0 1 11 18a4.992 4.992 0 0 1-4-2 4.992 4.992 0 0 1-4.55 1.97l-1.236-6.791A1 1 0 0 1 2.198 10H3V5a1 1 0 0 1 1-1h1V1h4v3zm-4 6h11.392l-2.5-4H5v4zM3 20a5.978 5.978 0 0 0 4-1.528A5.978 5.978 0 0 0 11 20a5.978 5.978 0 0 0 4-1.528A5.978 5.978 0 0 0 19 20h2v2h-2a7.963 7.963 0 0 1-4-1.07A7.963 7.963 0 0 1 11 22a7.963 7.963 0 0 1-4-1.07A7.963 7.963 0 0 1 3 22H1v-2h2z" />
+                        </svg>{' '}
+                        large tasks
                     </h2>
 
                     <div>
                         <button
-                            onClick={() => resetTasks('secondPriority')}
-                            title="reset priority 2 tasks"
+                            onClick={() => resetTasks('largeTasks')}
+                            title="reset large tasks"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -336,8 +360,8 @@ export default function App() {
                         </button>
 
                         <button
-                            onClick={() => toggleAddTaskModal('secondPriority')}
-                            title="add priority 2 task"
+                            onClick={() => toggleAddTaskModal('largeTasks')}
+                            title="add large task"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -351,7 +375,7 @@ export default function App() {
                         </button>
                     </div>
                 </div>
-                {tasks.secondPriority ? (
+                {tasks.largeTasks ? (
                     <SortableTasks
                         distance={1}
                         lockAxis="y"
@@ -360,11 +384,11 @@ export default function App() {
                             onSortEnd({
                                 oldIndex,
                                 newIndex,
-                                taskType: 'secondPriority'
+                                taskType: 'largeTasks'
                             })
                         }
-                        tasks={tasks.secondPriority.sort(sortTasks)}
-                        taskType="secondPriority"
+                        tasks={tasks.largeTasks.sort(sortTasks)}
+                        taskType="largeTasks"
                         setTasks={setTasks}
                         openEditTaskModal={openEditTaskModal}
                     />

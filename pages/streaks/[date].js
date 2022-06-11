@@ -55,21 +55,21 @@ export default function Streaks() {
                                 </ul>
 
                                 <h2 className="font-size-2 font-weight-bold color-dark-blue">
-                                    priority 1
+                                    medium tasks
                                 </h2>
 
                                 <ul className="font-size-1">
-                                    {tasks.firstPriority.map((task, index) => {
+                                    {tasks.mediumTasks.map((task, index) => {
                                         return <li key={index}>{task.task}</li>;
                                     })}
                                 </ul>
 
                                 <h2 className="font-size-2 font-weight-bold color-dark-blue">
-                                    priority 2
+                                    large tasks
                                 </h2>
 
                                 <ul className="font-size-1">
-                                    {tasks.secondPriority.map(task => {
+                                    {tasks.largeTasks.map(task => {
                                         return <li key={index}>{task.task}</li>;
                                     })}
                                 </ul>

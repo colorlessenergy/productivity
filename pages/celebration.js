@@ -15,12 +15,12 @@ export default function Celebration() {
             isDone: false
         }));
 
-        tasks.firstPriority = tasks.firstPriority.map(task => ({
+        tasks.mediumTasks = tasks.mediumTasks.map(task => ({
             ...task,
             isDone: false
         }));
 
-        tasks.secondPriority = tasks.secondPriority.map(task => ({
+        tasks.largeTasks = tasks.largeTasks.map(task => ({
             ...task,
             isDone: false
         }));
