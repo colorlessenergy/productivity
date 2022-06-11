@@ -28,6 +28,13 @@ const Task = ({ task, taskType, setTasks, openEditTaskModal }) => {
     };
 
     const deleteTask = () => {
+        let taskCount = JSON.parse(localStorage.getItem('taskCount'));
+        if (task.isDone) {
+            const taskText = task.task.toLowerCase().trim();
+            taskCount[taskText] -= 1;
+            localStorage.setItem('taskCount', JSON.stringify(taskCount));
+        }
+
         const cloneTasks = JSON.parse(localStorage.getItem('tasks'));
         const taskIndex = cloneTasks[taskType].findIndex(
             cloneTask => cloneTask.ID === task.ID
