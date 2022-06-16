@@ -278,7 +278,9 @@ export default function App() {
                                 taskType: 'quickTasks'
                             })
                         }
-                        tasks={tasks.quickTasks.sort(sortTasks)}
+                        tasks={JSON.parse(
+                            JSON.stringify(tasks.quickTasks)
+                        ).sort(sortTasks)}
                         taskType="quickTasks"
                         setTasks={setTasks}
                         openEditTaskModal={openEditTaskModal}
@@ -343,7 +345,9 @@ export default function App() {
                                 taskType: 'mediumTasks'
                             })
                         }
-                        tasks={tasks.mediumTasks.sort(sortTasks)}
+                        tasks={JSON.parse(
+                            JSON.stringify(tasks.mediumTasks)
+                        ).sort(sortTasks)}
                         taskType="mediumTasks"
                         setTasks={setTasks}
                         openEditTaskModal={openEditTaskModal}
@@ -408,7 +412,9 @@ export default function App() {
                                 taskType: 'largeTasks'
                             })
                         }
-                        tasks={tasks.largeTasks.sort(sortTasks)}
+                        tasks={JSON.parse(
+                            JSON.stringify(tasks.largeTasks)
+                        ).sort(sortTasks)}
                         taskType="largeTasks"
                         setTasks={setTasks}
                         openEditTaskModal={openEditTaskModal}
