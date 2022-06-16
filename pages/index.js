@@ -50,11 +50,25 @@ export default function App() {
             localStorage.setItem(
                 'tasks',
                 JSON.stringify({
-                    quickTasks: [{ ID: 1, task: 'drink water', isDone: false }],
-                    mediumTasks: [
-                        { ID: 2, task: 'create grocery list', isDone: false }
+                    quickTasks: [
+                        {
+                            ID: 1,
+                            position: 1,
+                            task: 'drink water',
+                            isDone: false
+                        }
                     ],
-                    largeTasks: [{ ID: 3, task: 'read', isDone: false }]
+                    mediumTasks: [
+                        {
+                            ID: 2,
+                            position: 2,
+                            task: 'create grocery list',
+                            isDone: false
+                        }
+                    ],
+                    largeTasks: [
+                        { ID: 3, position: 3, task: 'read', isDone: false }
+                    ]
                 })
             );
         }
@@ -116,6 +130,10 @@ export default function App() {
 
     const sortTasks = (taskOne, taskTwo) => {
         if (taskOne.isDone === taskTwo.isDone) {
+            if (taskOne.position < taskTwo.position) {
+                return -1;
+            }
+
             return 0;
         } else if (taskOne.isDone) {
             return 1;
@@ -129,7 +147,7 @@ export default function App() {
     const addTask = taskText => {
         let ID = JSON.parse(localStorage.getItem('ID'));
         ID += 1;
-        const task = { ID, task: taskText, isDone: false };
+        const task = { ID, position: ID, task: taskText, isDone: false };
 
         let cloneTasks = JSON.parse(JSON.stringify(tasks));
         cloneTasks[addTaskType].push(task);
@@ -162,6 +180,9 @@ export default function App() {
                     newIndex
                 )
             };
+
+            tasks[taskType][oldIndex].position = oldIndex;
+            tasks[taskType][newIndex].position = newIndex;
 
             localStorage.setItem('tasks', JSON.stringify(tasks));
             return tasks;
