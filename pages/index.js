@@ -120,7 +120,7 @@ export default function App() {
         cloneTasks[taskToEdit.taskType][taskIndex] = {
             ID: taskToEdit.ID,
             isDone: taskToEdit.isDone,
-            task: taskToEdit.task
+            task: taskToEdit.task.trim()
         };
         setTasks(cloneTasks);
         localStorage.setItem('tasks', JSON.stringify(cloneTasks));
@@ -194,7 +194,7 @@ export default function App() {
         let cloneTasks = JSON.parse(JSON.stringify(tasks));
 
         cloneTasks[type] = cloneTasks[type].map(task => {
-            const taskText = task.task.toLowerCase().trim();
+            const taskText = task.task.toLowerCase();
             if (task.isDone) {
                 taskCount[taskText] -= 1;
             }

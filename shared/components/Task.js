@@ -14,7 +14,7 @@ const Task = ({ task, taskType, setTasks, openEditTaskModal }) => {
         localStorage.setItem('tasks', JSON.stringify(cloneTasks));
 
         let taskCount = JSON.parse(localStorage.getItem('taskCount'));
-        const taskText = task.task.toLowerCase().trim();
+        const taskText = task.task.toLowerCase();
         if (!task.isDone) {
             if (taskCount[taskText]) {
                 taskCount[taskText] += 1;
@@ -30,7 +30,7 @@ const Task = ({ task, taskType, setTasks, openEditTaskModal }) => {
     const deleteTask = () => {
         let taskCount = JSON.parse(localStorage.getItem('taskCount'));
         if (task.isDone) {
-            const taskText = task.task.toLowerCase().trim();
+            const taskText = task.task.toLowerCase();
             taskCount[taskText] -= 1;
             localStorage.setItem('taskCount', JSON.stringify(taskCount));
         }

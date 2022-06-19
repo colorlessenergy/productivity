@@ -12,7 +12,7 @@ const AddTask = ({ handleSubmit, toggleAddTaskModal }) => {
         event.preventDefault();
         if (task === '') return setFormValidation('missing task');
 
-        handleSubmit(task);
+        handleSubmit(task.trim());
     };
 
     const inputRef = useRef(null);
