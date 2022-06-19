@@ -118,8 +118,7 @@ export default function App() {
             task => task.ID === taskToEdit.ID
         );
         cloneTasks[taskToEdit.taskType][taskIndex] = {
-            ID: taskToEdit.ID,
-            isDone: taskToEdit.isDone,
+            ...cloneTasks[taskToEdit.taskType][taskIndex],
             task: taskToEdit.task.trim()
         };
         setTasks(cloneTasks);
