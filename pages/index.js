@@ -163,6 +163,8 @@ export default function App() {
 
     const onSortEnd = ({ oldIndex, newIndex, taskType }) => {
         setTasks(previousTasks => {
+            previousTasks[taskType] = previousTasks[taskType].sort(sortTasks);
+
             const tasks = {
                 ...previousTasks,
                 [taskType]: arrayMoveImmutable(
