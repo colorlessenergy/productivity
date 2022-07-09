@@ -69,7 +69,7 @@ export default function Streaks() {
                                 </h2>
 
                                 <ul className="font-size-1">
-                                    {tasks.largeTasks.map(task => {
+                                    {tasks.largeTasks.map((task, index) => {
                                         return <li key={index}>{task.task}</li>;
                                     })}
                                 </ul>
