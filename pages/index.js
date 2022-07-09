@@ -7,6 +7,11 @@ import Task from '../shared/components/Task';
 import Modal from '../shared/components/Modal/Modal';
 import EditTask from '../shared/components/EditTask';
 import AddTask from '../shared/components/AddTask';
+import {
+    addTaskToLocalStorage,
+    areAllTasksDone,
+    editTaskInLocalStorage
+} from '../shared/utils/task';
 
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import { arrayMoveImmutable } from 'array-move';
@@ -80,13 +85,7 @@ export default function App() {
         )
             return;
 
-        if (
-            tasks.quickTasks.filter(task => task.isDone === false).length ===
-                0 &&
-            tasks.mediumTasks.filter(task => task.isDone === false).length ===
-                0 &&
-            tasks.largeTasks.filter(task => task.isDone === false).length === 0
-        ) {
+        if (areAllTasksDone(tasks)) {
             localStorage.setItem(
                 'visitedCelebrationPage',
                 JSON.stringify(true)
@@ -109,43 +108,20 @@ export default function App() {
     };
 
     const editTask = () => {
-        const cloneTasks = JSON.parse(JSON.stringify(tasks));
-        const taskIndex = cloneTasks[taskToEdit.taskType].findIndex(
-            task => task.ID === taskToEdit.ID
-        );
-        cloneTasks[taskToEdit.taskType][taskIndex] = {
-            ...cloneTasks[taskToEdit.taskType][taskIndex],
-            task: taskToEdit.task.trim()
-        };
-        setTasks(cloneTasks);
-        localStorage.setItem('tasks', JSON.stringify(cloneTasks));
+        const updatedTasks = editTaskInLocalStorage({ ...taskToEdit });
+        setTasks(updatedTasks);
 
         toggleEditTaskModal();
-    };
-
-    const sortTasks = (taskOne, taskTwo) => {
-        if (taskOne.isDone === taskTwo.isDone) {
-            return 0;
-        } else if (taskOne.isDone) {
-            return 1;
-        } else {
-            return -1;
-        }
     };
 
     const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
     const [addTaskType, setAddTaskType] = useState('');
     const addTask = taskText => {
-        let ID = JSON.parse(localStorage.getItem('ID'));
-        ID += 1;
-        const task = { ID, task: taskText, isDone: false };
-
-        let cloneTasks = JSON.parse(JSON.stringify(tasks));
-        cloneTasks[addTaskType].push(task);
-
-        setTasks(cloneTasks);
-        localStorage.setItem('tasks', JSON.stringify(cloneTasks));
-        localStorage.setItem('ID', JSON.stringify(ID));
+        const updatedTasks = addTaskToLocalStorage({
+            taskText,
+            taskType: addTaskType
+        });
+        setTasks(updatedTasks);
         toggleAddTaskModal();
     };
 
@@ -176,6 +152,16 @@ export default function App() {
             localStorage.setItem('tasks', JSON.stringify(tasks));
             return tasks;
         });
+    };
+
+    const sortTasks = (taskOne, taskTwo) => {
+        if (taskOne.isDone === taskTwo.isDone) {
+            return 0;
+        } else if (taskOne.isDone) {
+            return 1;
+        } else {
+            return -1;
+        }
     };
 
     return (
