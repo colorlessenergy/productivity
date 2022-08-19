@@ -54,13 +54,16 @@ const EditTask = ({
             <div className="flex flex-wrap align-items-center justify-content-between">
                 <button
                     type="button"
+                    title="cancel"
                     onClick={toggleEditTaskModal}
                     className="button mb-1 background-color-purple color-white"
                 >
                     cancel
                 </button>
 
-                <button className="button background-color-yellow">edit</button>
+                <button title="edit" className="button background-color-yellow">
+                    edit
+                </button>
             </div>
         </form>
     );

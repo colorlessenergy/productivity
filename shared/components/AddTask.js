@@ -49,13 +49,17 @@ const AddTask = ({ handleSubmit, toggleAddTaskModal }) => {
             <div className="flex align-items-center justify-content-between">
                 <button
                     type="button"
+                    title="cancel"
                     onClick={toggleAddTaskModal}
                     className="button background-color-purple color-white"
                 >
                     cancel
                 </button>
 
-                <button className="button background-color-yellow">
+                <button
+                    title="create"
+                    className="button background-color-yellow"
+                >
                     create
                 </button>
             </div>
