@@ -39,3 +39,7 @@ body.dark,
 .dark .color-dark-red {
     color: $red;
 }
+
+.dark .task {
+    background-color: $dark-mode-background-color;
+}
