@@ -10,7 +10,8 @@ import AddTask from '../shared/components/AddTask';
 import {
     addTaskToLocalStorage,
     areAllTasksDone,
-    editTaskInLocalStorage
+    editTaskInLocalStorage,
+    initializeTasks
 } from '../shared/utils/task';
 
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
@@ -51,28 +52,7 @@ const SortableTasks = SortableContainer(
 export default function App() {
     const [tasks, setTasks] = useState({});
     useEffect(() => {
-        if (!localStorage.getItem('tasks')) {
-            localStorage.setItem(
-                'tasks',
-                JSON.stringify({
-                    quickTasks: [
-                        {
-                            ID: 1,
-                            task: 'drink water',
-                            isDone: false
-                        }
-                    ],
-                    mediumTasks: [
-                        {
-                            ID: 2,
-                            task: 'create grocery list',
-                            isDone: false
-                        }
-                    ],
-                    largeTasks: [{ ID: 3, task: 'read', isDone: false }]
-                })
-            );
-        }
+        initializeTasks();
 
         setTasks(JSON.parse(localStorage.getItem('tasks')));
     }, []);

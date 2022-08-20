@@ -1,3 +1,28 @@
+export const initializeTasks = () => {
+    if (!localStorage.getItem('tasks')) {
+        localStorage.setItem(
+            'tasks',
+            JSON.stringify({
+                quickTasks: [
+                    {
+                        ID: 1,
+                        task: 'drink water',
+                        isDone: false
+                    }
+                ],
+                mediumTasks: [
+                    {
+                        ID: 2,
+                        task: 'create grocery list',
+                        isDone: false
+                    }
+                ],
+                largeTasks: [{ ID: 3, task: 'read', isDone: false }]
+            })
+        );
+    }
+};
+
 export const addTaskToLocalStorage = ({ taskText, taskType }) => {
     let ID = JSON.parse(localStorage.getItem('ID'));
     ID += 1;
