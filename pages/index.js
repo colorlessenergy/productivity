@@ -59,12 +59,6 @@ export default function App() {
 
     const router = useRouter();
     useEffect(() => {
-        if (
-            (!tasks.quickTasks && !tasks.mediumTasks && !tasks.largeTasks) ||
-            JSON.parse(localStorage.getItem('visitedCelebrationPage'))
-        )
-            return;
-
         if (areAllTasksDone(tasks)) {
             localStorage.setItem(
                 'visitedCelebrationPage',

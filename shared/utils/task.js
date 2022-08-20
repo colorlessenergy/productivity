@@ -52,6 +52,9 @@ export const editTaskInLocalStorage = ({ taskType, ID, task }) => {
 
 export const areAllTasksDone = tasks => {
     return (
+        tasks.quickTasks &&
+        tasks.mediumTasks &&
+        tasks.largeTasks &&
         tasks.quickTasks.filter(task => task.isDone === false).length === 0 &&
         tasks.mediumTasks.filter(task => task.isDone === false).length === 0 &&
         tasks.largeTasks.filter(task => task.isDone === false).length === 0
