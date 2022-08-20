@@ -32,6 +32,9 @@ const Streak = () => {
         return days;
     };
 
+    const date = new Date();
+    const monthName = date.toLocaleString('en-US', { month: 'long' });
+
     return (
         <React.Fragment>
             <h2 className="mb-1 font-size-3">streak</h2>
@@ -42,6 +45,8 @@ const Streak = () => {
                     {Object.keys(streak).length}
                 </span>
             </p>
+
+            <div className="mb-1 font-size-1">{monthName}</div>
 
             <div className="streak">
                 {streakForMonth().map((day, index) => {
