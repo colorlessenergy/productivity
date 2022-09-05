@@ -55,6 +55,9 @@ export const areAllTasksDone = tasks => {
         tasks.quickTasks &&
         tasks.mediumTasks &&
         tasks.largeTasks &&
+        (tasks.quickTasks.length > 0 ||
+            tasks.mediumTasks.length > 0 ||
+            tasks.largeTasks.length > 0) &&
         tasks.quickTasks.filter(task => task.isDone === false).length === 0 &&
         tasks.mediumTasks.filter(task => task.isDone === false).length === 0 &&
         tasks.largeTasks.filter(task => task.isDone === false).length === 0

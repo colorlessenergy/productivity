@@ -60,10 +60,6 @@ export default function App() {
     const router = useRouter();
     useEffect(() => {
         if (areAllTasksDone(tasks)) {
-            localStorage.setItem(
-                'visitedCelebrationPage',
-                JSON.stringify(true)
-            );
             router.replace('/celebration');
         }
     }, [tasks]);

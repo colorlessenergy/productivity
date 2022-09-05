@@ -12,7 +12,6 @@ const Task = ({ task, taskType, setTasks, openEditTaskModal }) => {
         };
 
         setTasks(cloneTasks);
-        localStorage.setItem('visitedCelebrationPage', JSON.stringify(false));
         localStorage.setItem('tasks', JSON.stringify(cloneTasks));
 
         let taskCount = JSON.parse(localStorage.getItem('taskCount'));
