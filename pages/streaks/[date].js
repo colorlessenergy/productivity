@@ -45,18 +45,14 @@ export default function Streaks() {
                                 <div className="font-size-2 task-list-header">
                                     task list {index + 1}
                                 </div>
-                                <h2 className="font-size-2 font-weight-bold color-dark-blue">
-                                    quick tasks
-                                </h2>
+                                <h2 className="font-size-2">quick tasks</h2>
                                 <ul className="font-size-1">
                                     {tasks.quickTasks.map((task, index) => {
                                         return <li key={index}>{task.task}</li>;
                                     })}
                                 </ul>
 
-                                <h2 className="font-size-2 font-weight-bold color-dark-blue">
-                                    medium tasks
-                                </h2>
+                                <h2 className="font-size-2">medium tasks</h2>
 
                                 <ul className="font-size-1">
                                     {tasks.mediumTasks.map((task, index) => {
@@ -64,9 +60,7 @@ export default function Streaks() {
                                     })}
                                 </ul>
 
-                                <h2 className="font-size-2 font-weight-bold color-dark-blue">
-                                    large tasks
-                                </h2>
+                                <h2 className="font-size-2">large tasks</h2>
 
                                 <ul className="font-size-1">
                                     {tasks.largeTasks.map((task, index) => {

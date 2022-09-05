@@ -146,7 +146,7 @@ export default function App() {
                 <Nav />
 
                 <div className="flex align-items-center justify-content-between">
-                    <h2 className="flex align-items-center font-size-2 font-weight-bold color-dark-blue">
+                    <h2 className="flex align-items-center font-size-2">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
@@ -198,7 +198,7 @@ export default function App() {
                 ) : null}
 
                 <div className="flex align-items-center justify-content-between">
-                    <h2 className="flex align-items-center font-size-2 font-weight-bold color-dark-blue">
+                    <h2 className="flex align-items-center font-size-2">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
@@ -250,7 +250,7 @@ export default function App() {
                 ) : null}
 
                 <div className="flex align-items-center justify-content-between">
-                    <h2 className="flex align-items-center font-size-2 font-weight-bold color-dark-blue">
+                    <h2 className="flex align-items-center font-size-2">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
