@@ -53,7 +53,10 @@ const Streak = () => {
                     if (day) {
                         return (
                             <Link key={index} href={`streaks/${day}`}>
-                                <a className="streak-circle streak-circle-active"></a>
+                                <a
+                                    className="streak-circle streak-circle-active"
+                                    title={day}
+                                ></a>
                             </Link>
                         );
                     }
