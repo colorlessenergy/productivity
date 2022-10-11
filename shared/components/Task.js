@@ -46,7 +46,7 @@ const Task = ({ task, taskType, setTasks, openEditTaskModal }) => {
         >
             <input
                 onChange={() => handleCheckboxChange({ task, taskType })}
-                className="d-none"
+                className="hide-checkbox-input"
                 type="checkbox"
                 id={`task-${task.ID}`}
                 name={`task-${task.ID}`}

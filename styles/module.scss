@@ -20,6 +20,11 @@
     padding: 10px;
 }
 
+.hide-checkbox-input {
+    height: 0;
+    width: 0;
+}
+
 .checkbox {
     border: 3px solid #000000;
     display: inline-block;
@@ -27,7 +32,11 @@
     width: 20px;
 }
 
-input:checked + label .checkbox {
+.hide-checkbox-input:focus + label .checkbox {
+    border-color: $orange;
+}
+
+.hide-checkbox-input:checked + label .checkbox {
     background-color: $pink;
 }
 
