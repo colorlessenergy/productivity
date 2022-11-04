@@ -54,14 +54,28 @@ const Streak = () => {
                         return (
                             <Link key={index} href={`streaks/${day}`}>
                                 <a
-                                    className="streak-circle streak-circle-active"
+                                    className="streak-square streak-square-active"
                                     title={day}
-                                ></a>
+                                >
+                                    {index + 1}
+
+                                    <div className="flex flex-wrap justify-content-center mt-1">
+                                        {streak[day].map(() => {
+                                            return (
+                                                <div className="streak-circle"></div>
+                                            );
+                                        })}
+                                    </div>
+                                </a>
                             </Link>
                         );
                     }
 
-                    return <div key={index} className="streak-circle"></div>;
+                    return (
+                        <div key={index} className="streak-square">
+                            {index + 1}
+                        </div>
+                    );
                 })}
             </div>
         </React.Fragment>

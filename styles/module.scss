@@ -48,21 +48,35 @@ body.modal-is-open {
 
 .streak {
     display: flex;
+    align-items: flex-start;
     flex-wrap: wrap;
     max-width: 300px;
 }
 
-.streak-circle {
+.streak-square {
     border: 1px solid #333333;
-    border-radius: 50%;
-    height: 20px;
-    width: 20px;
+    min-height: 40px;
+    width: 40px;
     margin-right: $space-1;
     margin-bottom: $space-1;
+    padding-left: 2px;
+
+    font-size: 13px;
 }
 
-.streak-circle-active {
-    background-color: #333333;
+.streak-square-active {
+    background-color: $pink;
+    color: #ffffff;
+}
+
+.streak-circle {
+    border-radius: 50%;
+    height: 10px;
+    width: 10px;
+    margin-right: 2px;
+    margin-bottom: 2px;
+
+    background-color: #ffffff;
 }
 
 .task-list-header {
