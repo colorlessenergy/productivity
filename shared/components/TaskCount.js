@@ -18,10 +18,11 @@ const TaskCount = () => {
             <h2 className="mb-1 font-size-3">task count</h2>
 
             <p className="mb-2">
-                total:{' '}
                 <span className="font-weight-bold">
                     {totalAmountOfTasksCompleted}
-                </span>
+                </span>{' '}
+                {totalAmountOfTasksCompleted === 1 ? 'task ' : 'tasks '}
+                completed
             </p>
 
             {Object.keys(taskCount)
