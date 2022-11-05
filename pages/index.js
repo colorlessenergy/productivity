@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
@@ -51,7 +51,21 @@ const SortableTasks = SortableContainer(
 
 export default function App() {
     const [tasks, setTasks] = useState({});
+    const [tasksFinishedToday, setTasksFinishedToday] = useState(false);
     useEffect(() => {
+        if (!localStorage.getItem('streak')) {
+            localStorage.setItem('streak', JSON.stringify({}));
+        }
+
+        let streak = JSON.parse(localStorage.getItem('streak'));
+        const date = new Date();
+        const formatDate = `${
+            date.getMonth() + 1
+        }-${date.getDate()}-${date.getFullYear()}`;
+        if (streak[formatDate]) {
+            setTasksFinishedToday(true);
+        }
+
         initializeTasks();
 
         setTasks(JSON.parse(localStorage.getItem('tasks')));
@@ -145,181 +159,199 @@ export default function App() {
             <div className="container">
                 <Nav />
 
-                <div className="flex align-items-center justify-content-between">
-                    <h2 className="flex align-items-center font-size-2">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            width="24"
-                            height="24"
-                            className="icon mr-1"
-                        >
-                            <path d="M19 20H5v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9l2.513-6.702A2 2 0 0 1 6.386 4h11.228a2 2 0 0 1 1.873 1.298L22 12v9a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1zM4.136 12h15.728l-2.25-6H6.386l-2.25 6zM6.5 17a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm11 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
-                        </svg>{' '}
-                        quick tasks
-                    </h2>
-
-                    <div>
-                        <button
-                            onClick={() => toggleAddTaskModal('quickTasks')}
-                            title="add quick task"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                width="24"
-                                height="24"
-                                className="icon"
-                            >
-                                <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
-                            </svg>
-                        </button>
+                {tasksFinishedToday ? (
+                    <div className="text-center">
+                        <h2 className="font-size-3 uppercase">
+                            🎉 All tasks finished today! 🎉
+                        </h2>
+                        <p className="font-size-1">
+                            come back tomorrow to do more
+                        </p>
                     </div>
-                </div>
-                {tasks.quickTasks ? (
-                    <SortableTasks
-                        distance={1}
-                        lockAxis="y"
-                        useWindowAsScrollContainer={true}
-                        onSortEnd={({ oldIndex, newIndex }) =>
-                            onSortEnd({
-                                oldIndex,
-                                newIndex,
-                                taskType: 'quickTasks'
-                            })
-                        }
-                        tasks={JSON.parse(
-                            JSON.stringify(tasks.quickTasks)
-                        ).sort(sortTasks)}
-                        taskType="quickTasks"
-                        setTasks={setTasks}
-                        openEditTaskModal={openEditTaskModal}
-                    />
-                ) : null}
+                ) : (
+                    <React.Fragment>
+                        <div className="flex align-items-center justify-content-between">
+                            <h2 className="flex align-items-center font-size-2">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    width="24"
+                                    height="24"
+                                    className="icon mr-1"
+                                >
+                                    <path d="M19 20H5v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9l2.513-6.702A2 2 0 0 1 6.386 4h11.228a2 2 0 0 1 1.873 1.298L22 12v9a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1zM4.136 12h15.728l-2.25-6H6.386l-2.25 6zM6.5 17a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm11 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
+                                </svg>{' '}
+                                quick tasks
+                            </h2>
 
-                <div className="flex align-items-center justify-content-between">
-                    <h2 className="flex align-items-center font-size-2">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            width="24"
-                            height="24"
-                            className="icon mr-1"
-                        >
-                            <path d="M17 8h3l3 4.056V18h-2.035a3.5 3.5 0 0 1-6.93 0h-5.07a3.5 3.5 0 0 1-6.93 0H1V6a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2zm0 2v3h4v-.285L18.992 10H17z" />
-                        </svg>{' '}
-                        medium tasks
-                    </h2>
+                            <div>
+                                <button
+                                    onClick={() =>
+                                        toggleAddTaskModal('quickTasks')
+                                    }
+                                    title="add quick task"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        width="24"
+                                        height="24"
+                                        className="icon"
+                                    >
+                                        <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        {tasks.quickTasks ? (
+                            <SortableTasks
+                                distance={1}
+                                lockAxis="y"
+                                useWindowAsScrollContainer={true}
+                                onSortEnd={({ oldIndex, newIndex }) =>
+                                    onSortEnd({
+                                        oldIndex,
+                                        newIndex,
+                                        taskType: 'quickTasks'
+                                    })
+                                }
+                                tasks={JSON.parse(
+                                    JSON.stringify(tasks.quickTasks)
+                                ).sort(sortTasks)}
+                                taskType="quickTasks"
+                                setTasks={setTasks}
+                                openEditTaskModal={openEditTaskModal}
+                            />
+                        ) : null}
+                        <div className="flex align-items-center justify-content-between">
+                            <h2 className="flex align-items-center font-size-2">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    width="24"
+                                    height="24"
+                                    className="icon mr-1"
+                                >
+                                    <path d="M17 8h3l3 4.056V18h-2.035a3.5 3.5 0 0 1-6.93 0h-5.07a3.5 3.5 0 0 1-6.93 0H1V6a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2zm0 2v3h4v-.285L18.992 10H17z" />
+                                </svg>{' '}
+                                medium tasks
+                            </h2>
 
-                    <div>
-                        <button
-                            onClick={() => toggleAddTaskModal('mediumTasks')}
-                            title="add medium task"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                width="24"
-                                height="24"
-                                className="icon"
-                            >
-                                <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                {tasks.mediumTasks ? (
-                    <SortableTasks
-                        distance={1}
-                        lockAxis="y"
-                        useWindowAsScrollContainer={true}
-                        onSortEnd={({ oldIndex, newIndex }) =>
-                            onSortEnd({
-                                oldIndex,
-                                newIndex,
-                                taskType: 'mediumTasks'
-                            })
-                        }
-                        tasks={JSON.parse(
-                            JSON.stringify(tasks.mediumTasks)
-                        ).sort(sortTasks)}
-                        taskType="mediumTasks"
-                        setTasks={setTasks}
-                        openEditTaskModal={openEditTaskModal}
-                    />
-                ) : null}
+                            <div>
+                                <button
+                                    onClick={() =>
+                                        toggleAddTaskModal('mediumTasks')
+                                    }
+                                    title="add medium task"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        width="24"
+                                        height="24"
+                                        className="icon"
+                                    >
+                                        <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        {tasks.mediumTasks ? (
+                            <SortableTasks
+                                distance={1}
+                                lockAxis="y"
+                                useWindowAsScrollContainer={true}
+                                onSortEnd={({ oldIndex, newIndex }) =>
+                                    onSortEnd({
+                                        oldIndex,
+                                        newIndex,
+                                        taskType: 'mediumTasks'
+                                    })
+                                }
+                                tasks={JSON.parse(
+                                    JSON.stringify(tasks.mediumTasks)
+                                ).sort(sortTasks)}
+                                taskType="mediumTasks"
+                                setTasks={setTasks}
+                                openEditTaskModal={openEditTaskModal}
+                            />
+                        ) : null}
 
-                <div className="flex align-items-center justify-content-between">
-                    <h2 className="flex align-items-center font-size-2">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            width="24"
-                            height="24"
-                            className="icon mr-1"
-                        >
-                            <path d="M9 4h5.446a1 1 0 0 1 .848.47L18.75 10h4.408a.5.5 0 0 1 .439.74l-3.937 7.217A4.992 4.992 0 0 1 15 16 4.992 4.992 0 0 1 11 18a4.992 4.992 0 0 1-4-2 4.992 4.992 0 0 1-4.55 1.97l-1.236-6.791A1 1 0 0 1 2.198 10H3V5a1 1 0 0 1 1-1h1V1h4v3zm-4 6h11.392l-2.5-4H5v4zM3 20a5.978 5.978 0 0 0 4-1.528A5.978 5.978 0 0 0 11 20a5.978 5.978 0 0 0 4-1.528A5.978 5.978 0 0 0 19 20h2v2h-2a7.963 7.963 0 0 1-4-1.07A7.963 7.963 0 0 1 11 22a7.963 7.963 0 0 1-4-1.07A7.963 7.963 0 0 1 3 22H1v-2h2z" />
-                        </svg>{' '}
-                        large tasks
-                    </h2>
+                        <div className="flex align-items-center justify-content-between">
+                            <h2 className="flex align-items-center font-size-2">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    width="24"
+                                    height="24"
+                                    className="icon mr-1"
+                                >
+                                    <path d="M9 4h5.446a1 1 0 0 1 .848.47L18.75 10h4.408a.5.5 0 0 1 .439.74l-3.937 7.217A4.992 4.992 0 0 1 15 16 4.992 4.992 0 0 1 11 18a4.992 4.992 0 0 1-4-2 4.992 4.992 0 0 1-4.55 1.97l-1.236-6.791A1 1 0 0 1 2.198 10H3V5a1 1 0 0 1 1-1h1V1h4v3zm-4 6h11.392l-2.5-4H5v4zM3 20a5.978 5.978 0 0 0 4-1.528A5.978 5.978 0 0 0 11 20a5.978 5.978 0 0 0 4-1.528A5.978 5.978 0 0 0 19 20h2v2h-2a7.963 7.963 0 0 1-4-1.07A7.963 7.963 0 0 1 11 22a7.963 7.963 0 0 1-4-1.07A7.963 7.963 0 0 1 3 22H1v-2h2z" />
+                                </svg>{' '}
+                                large tasks
+                            </h2>
 
-                    <div>
-                        <button
-                            onClick={() => toggleAddTaskModal('largeTasks')}
-                            title="add large task"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                width="24"
-                                height="24"
-                                className="icon"
-                            >
-                                <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                {tasks.largeTasks ? (
-                    <SortableTasks
-                        distance={1}
-                        lockAxis="y"
-                        useWindowAsScrollContainer={true}
-                        onSortEnd={({ oldIndex, newIndex }) =>
-                            onSortEnd({
-                                oldIndex,
-                                newIndex,
-                                taskType: 'largeTasks'
-                            })
-                        }
-                        tasks={JSON.parse(
-                            JSON.stringify(tasks.largeTasks)
-                        ).sort(sortTasks)}
-                        taskType="largeTasks"
-                        setTasks={setTasks}
-                        openEditTaskModal={openEditTaskModal}
-                    />
-                ) : null}
+                            <div>
+                                <button
+                                    onClick={() =>
+                                        toggleAddTaskModal('largeTasks')
+                                    }
+                                    title="add large task"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        width="24"
+                                        height="24"
+                                        className="icon"
+                                    >
+                                        <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        {tasks.largeTasks ? (
+                            <SortableTasks
+                                distance={1}
+                                lockAxis="y"
+                                useWindowAsScrollContainer={true}
+                                onSortEnd={({ oldIndex, newIndex }) =>
+                                    onSortEnd({
+                                        oldIndex,
+                                        newIndex,
+                                        taskType: 'largeTasks'
+                                    })
+                                }
+                                tasks={JSON.parse(
+                                    JSON.stringify(tasks.largeTasks)
+                                ).sort(sortTasks)}
+                                taskType="largeTasks"
+                                setTasks={setTasks}
+                                openEditTaskModal={openEditTaskModal}
+                            />
+                        ) : null}
 
-                {isEditTaskModalOpen ? (
-                    <Modal isOpen={isEditTaskModalOpen}>
-                        <EditTask
-                            taskToEdit={taskToEdit}
-                            setTaskToEdit={setTaskToEdit}
-                            handleSubmit={editTask}
-                            toggleEditTaskModal={toggleEditTaskModal}
-                        />
-                    </Modal>
-                ) : null}
+                        {isEditTaskModalOpen ? (
+                            <Modal isOpen={isEditTaskModalOpen}>
+                                <EditTask
+                                    taskToEdit={taskToEdit}
+                                    setTaskToEdit={setTaskToEdit}
+                                    handleSubmit={editTask}
+                                    toggleEditTaskModal={toggleEditTaskModal}
+                                />
+                            </Modal>
+                        ) : null}
 
-                {isAddTaskModalOpen ? (
-                    <Modal isOpen={isAddTaskModalOpen}>
-                        <AddTask
-                            handleSubmit={addTask}
-                            toggleAddTaskModal={toggleAddTaskModal}
-                        />
-                    </Modal>
-                ) : null}
+                        {isAddTaskModalOpen ? (
+                            <Modal isOpen={isAddTaskModalOpen}>
+                                <AddTask
+                                    handleSubmit={addTask}
+                                    toggleAddTaskModal={toggleAddTaskModal}
+                                />
+                            </Modal>
+                        ) : null}
+                    </React.Fragment>
+                )}
             </div>
         </div>
     );

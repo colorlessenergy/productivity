@@ -58,14 +58,6 @@ const Streak = () => {
                                     title={day}
                                 >
                                     {index + 1}
-
-                                    <div className="flex flex-wrap justify-content-center mt-1">
-                                        {streak[day].map(() => {
-                                            return (
-                                                <div className="streak-circle"></div>
-                                            );
-                                        })}
-                                    </div>
                                 </a>
                             </Link>
                         );
