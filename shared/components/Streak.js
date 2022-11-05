@@ -54,7 +54,11 @@ const Streak = () => {
                         return (
                             <Link key={index} href={`streaks/${day}`}>
                                 <a
-                                    className="streak-square streak-square-active"
+                                    className={`streak-square streak-square-active ${
+                                        date.getDate() === index + 1
+                                            ? 'streak-square-today'
+                                            : ''
+                                    }`}
                                     title={day}
                                 >
                                     {index + 1}
@@ -64,7 +68,14 @@ const Streak = () => {
                     }
 
                     return (
-                        <div key={index} className="streak-square">
+                        <div
+                            key={index}
+                            className={`streak-square ${
+                                date.getDate() === index + 1
+                                    ? 'streak-square-today'
+                                    : ''
+                            }`}
+                        >
                             {index + 1}
                         </div>
                     );
