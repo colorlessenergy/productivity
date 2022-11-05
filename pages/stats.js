@@ -34,7 +34,7 @@ const Stats = () => {
 
                 <h2 className="mb-1 font-size-3">task count</h2>
 
-                <p className="mb-2 font-size-1">
+                <p className="mb-2">
                     total:{' '}
                     <span className="font-weight-bold">
                         {totalAmountOfTasksCompleted}
