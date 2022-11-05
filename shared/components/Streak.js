@@ -40,7 +40,7 @@ const Streak = () => {
             <h2 className="mb-1 font-size-3">streak</h2>
 
             <p className="mb-2 font-size-1">
-                total amount of days:{' '}
+                total:{' '}
                 <span className="font-weight-bold">
                     {Object.keys(streak).length}
                 </span>
