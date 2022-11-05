@@ -1,22 +1,10 @@
-import { useEffect, useState } from 'react';
 import Head from 'next/head';
 
 import Nav from '../shared/components/Nav';
 import Streak from '../shared/components/Streak';
+import TaskCount from '../shared/components/TaskCount';
 
 const Stats = () => {
-    const [taskCount, setTaskCount] = useState({});
-    useEffect(() => {
-        setTaskCount(JSON.parse(localStorage.getItem('taskCount')));
-    }, []);
-
-    const totalAmountOfTasksCompleted = Object.keys(taskCount).reduce(
-        (previousValue, currentValue) => {
-            return previousValue + taskCount[currentValue];
-        },
-        0
-    );
-
     return (
         <div>
             <Head>
@@ -32,27 +20,7 @@ const Stats = () => {
 
                 <Streak />
 
-                <h2 className="mb-1 font-size-3">task count</h2>
-
-                <p className="mb-2">
-                    total:{' '}
-                    <span className="font-weight-bold">
-                        {totalAmountOfTasksCompleted}
-                    </span>
-                </p>
-
-                {Object.keys(taskCount)
-                    .sort((a, b) => taskCount[b] - taskCount[a])
-                    .map(taskCountKey => {
-                        return (
-                            <div
-                                className="mb-1 font-size-2"
-                                key={taskCountKey}
-                            >
-                                {taskCountKey} - {taskCount[taskCountKey]}
-                            </div>
-                        );
-                    })}
+                <TaskCount />
             </div>
         </div>
     );
