@@ -22,7 +22,7 @@ const Nav = () => {
     return (
         <nav className="flex justify-content-between align-items-center py-1 mb-1">
             <Link href="/">
-                <a className="font-size-3 font-weight-bold">productivity</a>
+                <a className="font-size-1 font-weight-bold">productivity</a>
             </Link>
 
             <div className="flex align-items-center justify-content-center">
