@@ -1,7 +1,7 @@
 import Head from 'next/head';
 
-import Nav from '../shared/components/Nav';
-import SettingsItem from '../shared/components/SettingsItem';
+import Nav from '../../shared/components/Nav';
+import SettingsItem from '../../shared/components/SettingsItem';
 
 const Settings = () => {
     return (
