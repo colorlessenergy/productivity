@@ -1,0 +1,17 @@
+.container {
+    position: fixed;
+    right: 8px;
+    bottom: 8px;
+    width: 200px;
+}
+
+.toast {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    min-height: 50px;
+    width: 100%;
+
+    box-shadow: #747474 0px 1px 3px;
+}
