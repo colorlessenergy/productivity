@@ -69,7 +69,7 @@ const EditTask = ({
                     type="button"
                     title="cancel"
                     onClick={toggleEditTaskModal}
-                    className="button mb-1 background-color-purple color-white"
+                    className="button background-color-purple color-white"
                 >
                     cancel
                 </button>
