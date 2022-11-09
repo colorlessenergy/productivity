@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 const EditTask = ({
     taskToEdit,
     setTaskToEdit,
+    setTasks,
     handleSubmit,
     toggleEditTaskModal
 }) => {
@@ -25,6 +26,18 @@ const EditTask = ({
     useEffect(() => {
         inputRef.current.focus();
     }, []);
+
+    const deleteTask = () => {
+        const cloneTasks = JSON.parse(localStorage.getItem('tasks'));
+        const taskIndex = cloneTasks[taskToEdit.taskType].findIndex(
+            cloneTask => cloneTask.ID === taskToEdit.ID
+        );
+        cloneTasks[taskToEdit.taskType].splice(taskIndex, 1);
+        setTasks(cloneTasks);
+        localStorage.setItem('tasks', JSON.stringify(cloneTasks));
+
+        toggleEditTaskModal();
+    };
 
     return (
         <form
@@ -59,6 +72,15 @@ const EditTask = ({
                     className="button mb-1 background-color-purple color-white"
                 >
                     cancel
+                </button>
+
+                <button
+                    type="button"
+                    title="delete"
+                    onClick={deleteTask}
+                    className="button background-color-dark-red color-white"
+                >
+                    delete
                 </button>
 
                 <button title="edit" className="button background-color-yellow">

@@ -336,6 +336,7 @@ export default function App() {
                                 <EditTask
                                     taskToEdit={taskToEdit}
                                     setTaskToEdit={setTaskToEdit}
+                                    setTasks={setTasks}
                                     handleSubmit={editTask}
                                     toggleEditTaskModal={toggleEditTaskModal}
                                 />
