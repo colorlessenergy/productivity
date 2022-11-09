@@ -7,6 +7,7 @@ import Task from '../shared/components/Task';
 import Modal from '../shared/components/Modal/Modal';
 import EditTask from '../shared/components/EditTask';
 import AddTask from '../shared/components/AddTask';
+import AddTaskButton from '../shared/components/Home/AddTaskButton';
 import {
     addTaskToLocalStorage,
     areAllTasksDone,
@@ -176,24 +177,11 @@ export default function App() {
                                 quick tasks
                             </h2>
 
-                            <div>
-                                <button
-                                    onClick={() =>
-                                        toggleAddTaskModal('quickTasks')
-                                    }
-                                    title="add quick task"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
-                                        width="24"
-                                        height="24"
-                                        className="icon"
-                                    >
-                                        <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
-                                    </svg>
-                                </button>
-                            </div>
+                            <AddTaskButton
+                                type="quickTasks"
+                                title="add quick task"
+                                toggleAddTaskModal={toggleAddTaskModal}
+                            />
                         </div>
                         {tasks.quickTasks ? (
                             <SortableTasks
@@ -229,24 +217,11 @@ export default function App() {
                                 medium tasks
                             </h2>
 
-                            <div>
-                                <button
-                                    onClick={() =>
-                                        toggleAddTaskModal('mediumTasks')
-                                    }
-                                    title="add medium task"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
-                                        width="24"
-                                        height="24"
-                                        className="icon"
-                                    >
-                                        <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
-                                    </svg>
-                                </button>
-                            </div>
+                            <AddTaskButton
+                                type="mediumTasks"
+                                title="add medium task"
+                                toggleAddTaskModal={toggleAddTaskModal}
+                            />
                         </div>
                         {tasks.mediumTasks ? (
                             <SortableTasks
@@ -283,24 +258,11 @@ export default function App() {
                                 large tasks
                             </h2>
 
-                            <div>
-                                <button
-                                    onClick={() =>
-                                        toggleAddTaskModal('largeTasks')
-                                    }
-                                    title="add large task"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
-                                        width="24"
-                                        height="24"
-                                        className="icon"
-                                    >
-                                        <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
-                                    </svg>
-                                </button>
-                            </div>
+                            <AddTaskButton
+                                type="largeTasks"
+                                title="add large task"
+                                toggleAddTaskModal={toggleAddTaskModal}
+                            />
                         </div>
                         {tasks.largeTasks ? (
                             <SortableTasks
