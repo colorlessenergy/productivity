@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 
+import { editTaskInLocalStorage } from '../utils/task';
+
 const EditTask = ({
     taskToEdit,
     setTaskToEdit,
     setTasks,
-    handleSubmit,
     toggleEditTaskModal
 }) => {
     const handleInputChange = event => {
@@ -19,7 +20,10 @@ const EditTask = ({
         event.preventDefault();
         if (taskToEdit.task === '') return setFormValidation('missing task');
 
-        handleSubmit();
+        const updatedTasks = editTaskInLocalStorage({ ...taskToEdit });
+        setTasks(updatedTasks);
+
+        toggleEditTaskModal();
     };
 
     const inputRef = useRef(null);

@@ -10,7 +10,6 @@ import AddTask from '../shared/components/AddTask';
 import {
     addTaskToLocalStorage,
     areAllTasksDone,
-    editTaskInLocalStorage,
     initializeTasks
 } from '../shared/utils/task';
 
@@ -89,13 +88,6 @@ export default function App() {
     const openEditTaskModal = ({ task, taskType }) => {
         toggleEditTaskModal();
         setTaskToEdit({ ...task, taskType });
-    };
-
-    const editTask = () => {
-        const updatedTasks = editTaskInLocalStorage({ ...taskToEdit });
-        setTasks(updatedTasks);
-
-        toggleEditTaskModal();
     };
 
     const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
@@ -337,7 +329,6 @@ export default function App() {
                                     taskToEdit={taskToEdit}
                                     setTaskToEdit={setTaskToEdit}
                                     setTasks={setTasks}
-                                    handleSubmit={editTask}
                                     toggleEditTaskModal={toggleEditTaskModal}
                                 />
                             </Modal>
