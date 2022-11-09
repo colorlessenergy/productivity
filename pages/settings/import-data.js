@@ -1,9 +1,12 @@
 import Head from 'next/head';
 
 import Nav from '../../shared/components/Nav';
+import Toast from '../../shared/components/Toast';
+import useToast from '../../shared/hooks/useToast';
 
 const ImportData = () => {
     const importData = event => {
+        addToast('importing');
         const reader = new FileReader();
         reader.onload = event => {
             const importedData = JSON.parse(event.target.result);
@@ -25,6 +28,8 @@ const ImportData = () => {
                 }
             }
             localStorage.setItem('taskCount', JSON.stringify(taskCount));
+
+            addToast('done importing');
         };
 
         reader.readAsText(event.target.files[0]);
@@ -33,6 +38,8 @@ const ImportData = () => {
     const setValueToNull = event => {
         event.target.value = null;
     };
+
+    const { toast, addToast } = useToast();
 
     return (
         <div>
@@ -65,6 +72,8 @@ const ImportData = () => {
                     className="d-none"
                 />
             </div>
+
+            <Toast toast={toast} />
         </div>
     );
 };
