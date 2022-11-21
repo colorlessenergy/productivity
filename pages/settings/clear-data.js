@@ -97,7 +97,7 @@ const ClearData = () => {
                         htmlFor="taskCount"
                     >
                         <span className="checkbox mr-1"></span>
-                        taskCount
+                        task count
                     </label>
                 </form>
 
