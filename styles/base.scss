@@ -10,7 +10,8 @@ body {
     overscroll-behavior-y: contain;
 }
 
-body {
+body,
+.task {
     transition: background-color 0.5s ease;
 }
 
