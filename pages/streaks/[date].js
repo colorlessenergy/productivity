@@ -33,38 +33,54 @@ export default function Streaks() {
                 <Nav />
 
                 <h1 className="mb-1 font-size-4">previous tasks</h1>
-                <p className="mb-3 font-size-1">{date}</p>
+                <p className="font-size-1">{date}</p>
 
                 {streak ? (
-                    <div className="task p-1 mb-2 position-relative">
-                        <div className="font-size-2 task-list-header">
-                            task list
-                        </div>
+                    <div className="mb-2">
                         <h2 className="font-size-2">quick tasks</h2>
-                        <ul className="font-size-1">
+                        <div className="flex flex-wrap font-size-1">
                             {streak.quickTasks &&
                                 streak.quickTasks.map((task, index) => {
-                                    return <li key={index}>{task.task}</li>;
+                                    return (
+                                        <div
+                                            key={index}
+                                            className="previous-task"
+                                        >
+                                            {task.task}
+                                        </div>
+                                    );
                                 })}
-                        </ul>
+                        </div>
 
                         <h2 className="font-size-2">medium tasks</h2>
-
-                        <ul className="font-size-1">
+                        <div className="flex flex-wrap font-size-1">
                             {streak.mediumTasks &&
                                 streak.mediumTasks.map((task, index) => {
-                                    return <li key={index}>{task.task}</li>;
+                                    return (
+                                        <div
+                                            key={index}
+                                            className="previous-task"
+                                        >
+                                            {task.task}
+                                        </div>
+                                    );
                                 })}
-                        </ul>
+                        </div>
 
                         <h2 className="font-size-2">large tasks</h2>
-
-                        <ul className="font-size-1">
+                        <div className="flex flex-wrap font-size-1">
                             {streak.largeTasks &&
                                 streak.largeTasks.map((task, index) => {
-                                    return <li key={index}>{task.task}</li>;
+                                    return (
+                                        <div
+                                            key={index}
+                                            className="previous-task"
+                                        >
+                                            {task.task}
+                                        </div>
+                                    );
                                 })}
-                        </ul>
+                        </div>
                     </div>
                 ) : (
                     <p className="font-size-3">

@@ -1,14 +1,14 @@
 @use 'variables.scss' as *;
 
-body.dark,
-.dark .task-list-header {
+body.dark {
     background-color: $dark-mode-background-color;
     color: #ffffff;
 }
 
 .dark .checkbox,
 .dark .task,
-.dark .streak-square {
+.dark .streak-square,
+.dark .previous-task {
     border-color: #ffffff;
 }
 
