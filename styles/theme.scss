@@ -32,8 +32,16 @@ body.dark {
     color: #ffffff;
 }
 
+.dark .color-blue {
+    color: $light-blue;
+}
+
 .dark .color-dark-red {
     color: $red;
+}
+
+.dark .fill-blue {
+    fill: $light-blue;
 }
 
 .dark .task {
