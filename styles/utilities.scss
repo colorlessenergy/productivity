@@ -103,12 +103,20 @@
     color: #000000;
 }
 
+.color-blue {
+    color: $blue;
+}
+
 .color-white {
     color: #ffffff;
 }
 
 .color-dark-red {
     color: $dark-red;
+}
+
+.fill-blue {
+    fill: $blue;
 }
 
 .text-center {
